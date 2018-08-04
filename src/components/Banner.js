@@ -22,8 +22,7 @@ class Banner extends Component {
       <BannerContainer>
         <BannerText>
           <BannerTextHighlight>{`Mission: `}</BannerTextHighlight>
-          To utilize technology to teach the world about the gospel of Jesus
-          Christ
+          To utilize technology to teach the gospel of Jesus Christ
         </BannerText>
       </BannerContainer>
     );

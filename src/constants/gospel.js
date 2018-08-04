@@ -467,8 +467,8 @@ export const NextSteps = ({ navigateToResources, navigateToChurchFinder }) => (
       </GospelQuote>
     </ImageContainer>
     <Text>
-      The "Resources" page also contains a section with a list of church
-      finders/directories that you can use to find a solid church:
+      Visit the Church Finder page for a list of church finders/directories that
+      you can use to find a solid church:
     </Text>
     <TouchableOpacity onPress={navigateToChurchFinder}>
       <ResourcesContainer style={{ width: 210 }}>

@@ -103,6 +103,7 @@ class CatechismPractice extends Component {
     multipleChoiceOptions: [],
     number: 1,
     numberInput: 1,
+    showAnswer: false,
     thumbsOpacityAnim: new Animated.Value(0),
     thumbsRightAnim: new Animated.Value(0)
   };
@@ -520,11 +521,41 @@ class CatechismPractice extends Component {
             borderTopLeftRadius,
             borderBottomLeftRadius,
             borderTopRightRadius,
-            borderBottomRightRadius,
-            marginBottom: 20
+            borderBottomRightRadius
           }}
         >
           <Text style={{ color }}>{label}</Text>
+        </CatechismOptionContainer>
+      </TouchableOpacity>
+    );
+  }
+
+  renderShowAnswer() {
+    const { showAnswer } = this.state;
+
+    let backgroundColor = "#C8E6C9";
+    let color = "#757575";
+
+    if (showAnswer) {
+      backgroundColor = "#43A047";
+      color = "#fff";
+    }
+
+    return (
+      <TouchableOpacity
+        onPress={() => this.setState({ showAnswer: !showAnswer })}
+      >
+        <CatechismOptionContainer
+          style={{
+            backgroundColor,
+            borderTopLeftRadius: 12,
+            borderBottomLeftRadius: 12,
+            borderTopRightRadius: 12,
+            borderBottomRightRadius: 12,
+            marginBottom: 20
+          }}
+        >
+          <Text style={{ color }}>Show answer</Text>
         </CatechismOptionContainer>
       </TouchableOpacity>
     );
@@ -574,7 +605,8 @@ class CatechismPractice extends Component {
       fillAnswers,
       mode,
       multipleChoiceOptions,
-      number
+      number,
+      showAnswer
     } = this.state;
 
     const catechism = this.getCatechism();
@@ -583,8 +615,10 @@ class CatechismPractice extends Component {
       return this.renderCorrect();
     }
 
+    let content = null;
+
     if (mode === "Multiple choice") {
-      return (
+      content = (
         <MultipleChoice
           answer={answer}
           onMultipleChoiceSelect={this.onMultipleChoiceSelect}
@@ -594,7 +628,7 @@ class CatechismPractice extends Component {
     }
 
     if (mode === "Fill in the blank") {
-      return (
+      content = (
         <FillInTheBlank
           fillAnswers={fillAnswers}
           number={number}
@@ -606,7 +640,7 @@ class CatechismPractice extends Component {
     }
 
     if (mode === "Full answer") {
-      return (
+      content = (
         <FullAnswer
           answer={answer}
           onAnswerChange={this.onAnswerChange}
@@ -614,6 +648,23 @@ class CatechismPractice extends Component {
         />
       );
     }
+
+    return (
+      <View>
+        {showAnswer ? (
+          <CatechismCorrectText
+            style={{
+              marginTop: 20,
+              marginLeft: 20,
+              marginBottom: 0
+            }}
+          >
+            {catechism[number - 1].answer}
+          </CatechismCorrectText>
+        ) : null}
+        {content}
+      </View>
+    );
   }
 
   renderCorrect() {
@@ -678,6 +729,7 @@ class CatechismPractice extends Component {
             {this.renderModeOption("Fill in the blank")}
             {this.renderModeOption("Full answer", "right")}
           </CatechismSwitcher>
+          <CatechismSwitcher>{this.renderShowAnswer()}</CatechismSwitcher>
           <View style={styles.catechismCardContainer1}>
             <View style={styles.catechismCardContainer2}>
               <CatechismCard>

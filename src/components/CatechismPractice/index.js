@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
-import { defer, every, partial } from "lodash";
+import { defer, every, partial, shuffle, some } from "lodash";
 
 import {
   Animated,
@@ -22,6 +22,7 @@ import {
 } from "../../constants/catechism-practice";
 import FullAnswer from "./FullAnswer";
 import FillInTheBlank from "./FillInTheBlank";
+import MultipleChoice from "./MultipleChoice";
 
 const CatechismPracticeContainer = styled.View`
   align-items: center;
@@ -99,6 +100,7 @@ class CatechismPractice extends Component {
     fillAnswers: [],
     language: "English",
     mode: "Fill in the blank",
+    multipleChoiceOptions: [],
     number: 1,
     numberInput: 1,
     thumbsOpacityAnim: new Animated.Value(0),
@@ -124,6 +126,40 @@ class CatechismPractice extends Component {
           this.onNext();
         }
       });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      catechism,
+      language,
+      mode,
+      number,
+      correct,
+      thumbsOpacityAnim,
+      thumbsRightAnim
+    } = this.state;
+
+    if (!prevState.correct && correct) {
+      Animated.timing(thumbsOpacityAnim, {
+        toValue: 1,
+        duration: 200
+      }).start();
+
+      Animated.spring(thumbsRightAnim, {
+        toValue: 200,
+        duration: 200,
+        friction: 5
+      }).start();
+    }
+
+    if (
+      prevState.catechism !== catechism ||
+      prevState.language !== language ||
+      prevState.mode !== mode ||
+      prevState.number !== number
+    ) {
+      this.setState({ multipleChoiceOptions: this.getOptions() });
     }
   }
 
@@ -161,6 +197,34 @@ class CatechismPractice extends Component {
     return finalString.replace(/[^a-zA-Z ]/gm, "").toLowerCase();
   }
 
+  getOptions(forceNumber) {
+    const { number } = this.state;
+
+    const catechism = this.getCatechism();
+
+    const options = [forceNumber || number];
+
+    let newNumber;
+    const max = catechism.length;
+
+    while (options.length < 4) {
+      newNumber = Math.round(Math.random() * 10) + number - 5;
+      if (
+        !some(options, option => option === newNumber) &&
+        newNumber >= 1 &&
+        newNumber <= max
+      ) {
+        options.push(newNumber);
+      }
+    }
+
+    return shuffle(
+      options.map(option => {
+        return catechism[option - 1].answer;
+      })
+    );
+  }
+
   onLanguageChange = language => {
     let catechism = this.state.catechism;
 
@@ -178,7 +242,13 @@ class CatechismPractice extends Component {
       }
     }
 
-    this.setState({ catechism, language });
+    this.setState({
+      catechism,
+      language,
+      correct: false,
+      number: 1,
+      numberInput: String(1)
+    });
   };
 
   onNavigationNumberChange = input => {
@@ -186,26 +256,49 @@ class CatechismPractice extends Component {
   };
 
   onNavigationNumberSubmit = () => {
+    this.resetAnimation();
+
     const { number, numberInput } = this.state;
     const input = Number(numberInput);
 
     const catechism = this.getCatechism();
 
     if (input >= 1 && input <= catechism.length) {
-      this.setState({ number: input });
+      this.setState({
+        answer: "",
+        correct: false,
+        fillAnswers: [],
+        number: input
+      });
     } else {
       this.setState({ numberInput: String(number) });
     }
   };
 
   onCatechismChange = catechism => {
-    this.setState({ catechism });
+    this.setState({
+      catechism,
+      correct: false,
+      number: 1,
+      numberInput: String(1)
+    });
   };
 
   onModeChange = mode => {
-    this.setState({ mode }, () => {
-      this.focusInput(mode);
-    });
+    this.resetAnimation();
+
+    this.setState(
+      {
+        mode,
+        number: 1,
+        answer: "",
+        correct: false,
+        fillAnswers: []
+      },
+      () => {
+        this.focusInput(mode);
+      }
+    );
   };
 
   resetAnimation() {
@@ -310,6 +403,22 @@ class CatechismPractice extends Component {
     if (correct && index < fillAnswer.length - 1) {
       this.fillInTheBlank.blankInputs[index + 1].focus();
     }
+  };
+
+  onMultipleChoiceSelect = answer => {
+    const { number } = this.state;
+
+    const catechism = this.getCatechism();
+
+    const simpleAnswer = this.getSimpleAnswer(answer);
+    const actualAnswer = this.getSimpleAnswer(catechism[number - 1].answer);
+
+    const correct = simpleAnswer === actualAnswer;
+
+    this.setState({
+      answer,
+      correct
+    });
   };
 
   renderLanguageOption(label, isLeft) {
@@ -459,12 +568,29 @@ class CatechismPractice extends Component {
   }
 
   renderAnswer() {
-    const { answer, correct, fillAnswers, mode, number } = this.state;
+    const {
+      answer,
+      correct,
+      fillAnswers,
+      mode,
+      multipleChoiceOptions,
+      number
+    } = this.state;
 
     const catechism = this.getCatechism();
 
     if (correct) {
       return this.renderCorrect();
+    }
+
+    if (mode === "Multiple choice") {
+      return (
+        <MultipleChoice
+          answer={answer}
+          onMultipleChoiceSelect={this.onMultipleChoiceSelect}
+          options={multipleChoiceOptions}
+        />
+      );
     }
 
     if (mode === "Fill in the blank") {
@@ -494,17 +620,6 @@ class CatechismPractice extends Component {
     const { thumbsOpacityAnim, thumbsRightAnim } = this.state;
 
     const catechism = this.getCatechism();
-
-    Animated.timing(thumbsOpacityAnim, {
-      toValue: 1,
-      duration: 200
-    }).start();
-
-    Animated.spring(thumbsRightAnim, {
-      toValue: 200,
-      duration: 200,
-      friction: 5
-    }).start();
 
     return (
       <CatechismAnswer>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
-import { every, partial } from "lodash";
+import { defer, every, partial } from "lodash";
 
 import {
   Animated,
@@ -100,6 +100,7 @@ class CatechismPractice extends Component {
     language: "English",
     mode: "Fill in the blank",
     number: 1,
+    numberInput: 1,
     thumbsOpacityAnim: new Animated.Value(0),
     thumbsRightAnim: new Animated.Value(0)
   };
@@ -180,6 +181,23 @@ class CatechismPractice extends Component {
     this.setState({ catechism, language });
   };
 
+  onNavigationNumberChange = input => {
+    this.setState({ numberInput: input });
+  };
+
+  onNavigationNumberSubmit = () => {
+    const { number, numberInput } = this.state;
+    const input = Number(numberInput);
+
+    const catechism = this.getCatechism();
+
+    if (input >= 1 && input <= catechism.length) {
+      this.setState({ number: input });
+    } else {
+      this.setState({ numberInput: String(number) });
+    }
+  };
+
   onCatechismChange = catechism => {
     this.setState({ catechism });
   };
@@ -206,22 +224,27 @@ class CatechismPractice extends Component {
 
     const finalMode = newMode || mode;
 
-    if (finalMode === "Full answer") {
-      this.fullAnswer.answerInput.focus();
-    } else if (finalMode === "Fill in the blank") {
-      this.fillInTheBlank.blankInputs[0].focus();
-    }
+    defer(() => {
+      if (finalMode === "Full answer") {
+        this.fullAnswer.answerInput.focus();
+      } else if (finalMode === "Fill in the blank") {
+        this.fillInTheBlank.blankInputs[0].focus();
+      }
+    });
   }
 
   onNext = () => {
     this.resetAnimation();
+
+    const newNumber = this.state.number + 1;
 
     this.setState(
       {
         answer: "",
         correct: false,
         fillAnswers: [],
-        number: this.state.number + 1
+        number: newNumber,
+        numberInput: String(newNumber)
       },
       () => {
         this.focusInput();
@@ -232,12 +255,15 @@ class CatechismPractice extends Component {
   onPrevious = () => {
     this.resetAnimation();
 
+    const newNumber = this.state.number - 1;
+
     this.setState(
       {
         answer: "",
         correct: false,
         fillAnswers: [],
-        number: this.state.number - 1
+        number: newNumber,
+        numberInput: String(newNumber)
       },
       () => {
         this.focusInput();
@@ -281,7 +307,9 @@ class CatechismPractice extends Component {
 
     this.setState({ fillAnswers, correct: allCorrect });
 
-    // if ()
+    if (correct && index < fillAnswer.length - 1) {
+      this.fillInTheBlank.blankInputs[index + 1].focus();
+    }
   };
 
   renderLanguageOption(label, isLeft) {
@@ -410,10 +438,12 @@ class CatechismPractice extends Component {
           <View style={{ width: 20 }} />
         )}
         <TextInput
+          onBlur={this.onNavigationNumberSubmit}
+          onChangeText={this.onNavigationNumberChange}
           selectTextOnFocus
           style={styles.navigationInput}
           underlineColorAndroid="rgba(0,0,0,0)"
-          value={String(this.state.number)}
+          value={String(this.state.numberInput)}
         />
         {number < catechism.length ? (
           <TouchableOpacity onPress={this.onNext}>
@@ -558,7 +588,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     fontSize: 20,
     textAlign: "center",
-    width: 38
+    width: 45
   },
   catechismCardContainer1: {
     backgroundColor: "#fff",

@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 import { get, partial } from "lodash";
 
-import { Platform, StyleSheet, Text as RNText, TextInput } from "react-native";
+import { Platform, StyleSheet, TextInput } from "react-native";
 
 const CatechismAnswer = styled.View`
-  padding: 20px;
+  padding: 12px 20px 20px;
   position: relative;
+`;
+
+const AnswersContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const CatechismWord = styled.Text``;
@@ -20,7 +26,7 @@ export default class FillInTheBlank extends Component {
     this.blankInputs = [];
 
     return (
-      <RNText>
+      <AnswersContainer>
         {this.props.question.split(" ").map((word, index) => {
           if (word.indexOf("**") !== -1) {
             blankInputIndexForValue++;
@@ -35,6 +41,7 @@ export default class FillInTheBlank extends Component {
                       borderColor: "#212121",
                       borderBottomWidth: 1,
                       marginRight: 6,
+                      marginTop: 8,
                       textAlign: "center",
                       width: 80
                     }
@@ -57,7 +64,7 @@ export default class FillInTheBlank extends Component {
                   }
                 }}
                 style={textInputStyles}
-                underlineColorAndroid="rgba(0,0,0,0"
+                underlineColorAndroid="rgba(0,0,0,0)"
                 value={get(fillAnswer, "answer", "")}
               />
             );
@@ -69,7 +76,7 @@ export default class FillInTheBlank extends Component {
             </CatechismWord>
           );
         })}
-      </RNText>
+      </AnswersContainer>
     );
   }
 
@@ -83,6 +90,7 @@ const styles = StyleSheet.create({
     borderColor: "#212121",
     borderBottomWidth: 1,
     marginRight: 6,
+    marginTop: 8,
     textAlign: "center",
     width: 80
   },
@@ -93,6 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   word: {
-    marginRight: 6
+    marginRight: 6,
+    marginTop: 8
   }
 });

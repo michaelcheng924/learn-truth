@@ -247,6 +247,7 @@ class CatechismPractice extends Component {
       catechism,
       language,
       correct: false,
+      fillAnswers: [],
       number: 1,
       numberInput: String(1)
     });
@@ -280,6 +281,7 @@ class CatechismPractice extends Component {
     this.setState({
       catechism,
       correct: false,
+      fillAnswers: [],
       number: 1,
       numberInput: String(1)
     });

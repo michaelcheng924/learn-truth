@@ -1,1 +1,1 @@
-export { Heading, OL, PageHeading, Text } from "./tags";
+export { Heading, OL, PageHeading, PageSubtitle, Text } from "./tags";

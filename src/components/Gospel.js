@@ -3,7 +3,7 @@ import styled from "styled-components/primitives";
 
 import { Platform, TouchableOpacity } from "react-native";
 
-import { PageHeading } from "./shared";
+import { PageHeading, PageSubtitle } from "./shared";
 import {
   Intro,
   Bible,
@@ -15,14 +15,6 @@ import {
 } from "../constants/gospel";
 
 const GospelContainer = styled.View``;
-
-const GospelSubtitle = styled.Text`
-  color: #95a5a6;
-  font-size: 18px;
-  line-height: 28;
-  margin-bottom: 20px;
-  text-align: center;
-`;
 
 const GospelSectionsContainer = styled.View`
   display: flex;
@@ -192,9 +184,9 @@ class Gospel extends Component {
     return (
       <GospelContainer>
         <PageHeading>What is the Gospel?</PageHeading>
-        <GospelSubtitle>
+        <PageSubtitle>
           Learn the most important truth in the universe
-        </GospelSubtitle>
+        </PageSubtitle>
         <GospelSectionsContainer>
           {this.renderSectionTab({
             index: 1,

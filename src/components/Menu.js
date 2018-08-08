@@ -102,6 +102,11 @@ class Menu extends Component {
           require("../images/icon-question-mark.png")
         )}
         {this.renderLink(
+          "/catechism-practice",
+          "Catechism Practice",
+          require("../images/icon-speech-bubbles.png")
+        )}
+        {this.renderLink(
           "/resources",
           "Resources",
           require("../images/icon-list.png")

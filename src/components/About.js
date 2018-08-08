@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Heading, OL, PageHeading, Text } from "./shared";
+import { Heading, PageHeading, Text } from "./shared";
 
 const AboutContainer = styled.View`
   padding: 0 20px 20px;

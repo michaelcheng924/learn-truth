@@ -9,6 +9,7 @@ import Menu from "./components/Menu";
 import Home from "./components/Home";
 import Gospel from "./components/Gospel";
 import Answers from "./components/Answers";
+import CatechismPractice from "./components/CatechismPractice";
 import Resources from "./components/Resources";
 import ChurchFinder from "./components/ChurchFinder";
 import About from "./components/About";
@@ -87,6 +88,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/gospel" render={this.renderGospel} />
           <Route path="/answers" component={Answers} />
+          <Route path="/catechism-practice" component={CatechismPractice} />
           <Route path="/resources" render={this.renderResources} />
           <Route path="/church-finder" render={this.renderChurchFinder} />
           <Route path="/about" component={About} />

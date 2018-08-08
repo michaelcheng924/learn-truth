@@ -8,30 +8,6 @@ const ResourcesContainer = styled.View`
   padding: 0 20px 20px;
 `;
 
-const OptionsContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-`;
-
-const OptionContainer = styled.View`
-  align-items: center;
-  border-radius: 3px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 10px;
-  padding: 5px 10px;
-  width: 200px;
-`;
-
-const OptionText = styled.Text`
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
-`;
-
 const ContentContainer = styled.View`
   display: flex;
   flex-direction: row;
@@ -58,12 +34,6 @@ const ResourceInfoContainer = styled.View``;
 const ResourceName = styled.Text`
   font-size: 25px;
   font-weight: 500;
-  width: 240px;
-`;
-
-const ResourceDescription = styled.Text`
-  color: #616161;
-  font-size: 18px;
   width: 240px;
 `;
 

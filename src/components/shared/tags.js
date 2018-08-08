@@ -7,6 +7,14 @@ const PageHeading = styled.Text`
   text-align: center;
 `;
 
+const PageSubtitle = styled.Text`
+  color: #95a5a6;
+  font-size: 18px;
+  line-height: 28;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
 const Heading = styled.Text`
   color: #000;
   font-size: 28px;
@@ -59,4 +67,4 @@ class OL extends Component {
   }
 }
 
-export { Heading, OL, PageHeading, Text };
+export { Heading, OL, PageHeading, PageSubtitle, Text };

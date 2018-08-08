@@ -81,6 +81,23 @@ class Home extends Component {
             </LinkContainer>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => this.props.history.push("/catechism-practice")}
+          >
+            <LinkContainer>
+              <LinkImageContainer style={{ backgroundColor: "#FF5722" }}>
+                <LinkImage
+                  source={require("../images/icon-speech-bubbles-white.png")}
+                />
+              </LinkImageContainer>
+              <View>
+                <LinkName>Catechism Practice</LinkName>
+                <LinkDescription>
+                  Learn through questions and answers
+                </LinkDescription>
+              </View>
+            </LinkContainer>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => this.props.history.push("/resources")}
           >
             <LinkContainer>

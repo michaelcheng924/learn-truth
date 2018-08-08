@@ -108,11 +108,11 @@ class CatechismPractice extends Component {
     this.focusInput();
 
     if (Platform.OS === "web") {
-      const { number } = this.state;
-
-      const catechism = this.getCatechism();
-
       document.addEventListener("keydown", event => {
+        const { number } = this.state;
+
+        const catechism = this.getCatechism();
+
         if (this.state.correct && event.which === 13) {
           this.onNext();
         }
@@ -280,6 +280,8 @@ class CatechismPractice extends Component {
       every(fillAnswers, fillAnswer => fillAnswer && fillAnswer.correct);
 
     this.setState({ fillAnswers, correct: allCorrect });
+
+    // if ()
   };
 
   renderLanguageOption(label, isLeft) {

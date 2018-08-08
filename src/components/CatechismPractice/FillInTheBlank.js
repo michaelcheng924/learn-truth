@@ -15,18 +15,6 @@ export default class FillInTheBlank extends Component {
   renderAnswers() {
     const { fillAnswers, onBlankChange } = this.props;
 
-    const textInputStyles =
-      Platform.OS === "web"
-        ? {
-            outline: "none",
-            borderColor: "#212121",
-            borderBottomWidth: 1,
-            marginRight: 6,
-            textAlign: "center",
-            width: 80
-          }
-        : styles.blankInput;
-
     let blankInputIndex = 0;
     let blankInputIndexForValue = -1;
     this.blankInputs = [];
@@ -36,6 +24,26 @@ export default class FillInTheBlank extends Component {
         {this.props.question.split(" ").map((word, index) => {
           if (word.indexOf("**") !== -1) {
             blankInputIndexForValue++;
+
+            const fillAnswer = fillAnswers[blankInputIndexForValue];
+
+            const textInputStyles =
+              Platform.OS === "web"
+                ? [
+                    {
+                      outline: "none",
+                      borderColor: "#212121",
+                      borderBottomWidth: 1,
+                      marginRight: 6,
+                      textAlign: "center",
+                      width: 80
+                    }
+                  ]
+                : [styles.blankInput];
+
+            if (get(fillAnswer, "correct", false)) {
+              textInputStyles.push(styles.blankInputCorrect);
+            }
 
             return (
               <TextInput
@@ -50,7 +58,7 @@ export default class FillInTheBlank extends Component {
                 }}
                 style={textInputStyles}
                 underlineColorAndroid="rgba(0,0,0,0"
-                value={get(fillAnswers[blankInputIndexForValue], "answer", "")}
+                value={get(fillAnswer, "answer", "")}
               />
             );
           }
@@ -77,6 +85,12 @@ const styles = StyleSheet.create({
     marginRight: 6,
     textAlign: "center",
     width: 80
+  },
+  blankInputCorrect: {
+    color: "#43A047",
+    borderColor: "#43A047",
+    borderBottomWidth: 2,
+    fontWeight: "bold"
   },
   word: {
     marginRight: 6

@@ -80,6 +80,7 @@ class App extends Component {
         <ScrollView ref={scrollView => (this.scrollView = scrollView)}>
           <View
             style={{
+              backgroundColor: "#666",
               height:
                 Platform.OS === "android" ? 24 : Platform.OS === "ios" ? 24 : 0
             }}

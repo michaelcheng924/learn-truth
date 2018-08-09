@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 import { partial } from "lodash";
 
-import { Animated, TouchableOpacity } from "react-native";
+import { Animated, Platform, TouchableOpacity } from "react-native";
 import { Redirect } from "./router/react-router";
 
 const MenuTextContainer = styled.View`
@@ -23,6 +23,11 @@ const MenuImage = styled.Image`
 
 const MenuText = styled.Text`
   width: 280px;
+`;
+
+const AppStoreImage = styled.Image`
+  height: 36px;
+  width: 120px;
 `;
 
 class Menu extends Component {
@@ -62,6 +67,20 @@ class Menu extends Component {
         <MenuTextContainer>
           <MenuImage source={source} />
           <MenuText>{label}</MenuText>
+        </MenuTextContainer>
+      </TouchableOpacity>
+    );
+  }
+
+  renderMobileLinks() {
+    return (
+      <TouchableOpacity>
+        <MenuTextContainer style={{ paddingLeft: 10 }}>
+          <AppStoreImage
+            source={require("../images/app-store.png")}
+            style={{ marginRight: 20 }}
+          />
+          <AppStoreImage source={require("../images/google-play.png")} />
         </MenuTextContainer>
       </TouchableOpacity>
     );
@@ -121,6 +140,7 @@ class Menu extends Component {
           "About/Contribute",
           require("../images/icon-info.png")
         )}
+        {Platform.OS === "web" ? this.renderMobileLinks() : null}
       </Animated.View>
     );
   }

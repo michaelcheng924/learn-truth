@@ -3,6 +3,7 @@ import styled from "styled-components/primitives";
 
 import { TextInput } from "react-native";
 import { PageHeading } from "./shared";
+import { Markdown } from "./markdown";
 
 const AnswersContainer = styled.View`
   display: flex;
@@ -25,6 +26,10 @@ class Answers extends Component {
             width: 300
           }}
         />
+        <Markdown customizer={this.test}>{`
+blah blah
+**bold**
+        `}</Markdown>
       </AnswersContainer>
     );
   }

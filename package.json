@@ -10,12 +10,13 @@
     "react": "^16.4.1",
     "react-art": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-native": "~0.55.2",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz",
     "react-native-web": "^0.8.9",
     "react-primitives": "^0.6.0",
     "react-router-dom": "^4.3.1",
     "react-router-native": "^4.3.0",
     "react-scripts": "1.1.4",
+    "react-universal-markdown": "^0.0.27",
     "styled-components": "^3.3.3"
   },
   "scripts": {

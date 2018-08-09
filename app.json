@@ -24,7 +24,7 @@
     },
     "android": {
       "package": "com.learntruth",
-      "versionCode": "1.0.0"
+      "versionCode": 1
     }
   }
 }

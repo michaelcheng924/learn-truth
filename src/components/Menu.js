@@ -115,11 +115,11 @@ class Menu extends Component {
           "The Gospel",
           require("../images/menu-cross.png")
         )}
-        {this.renderLink(
+        {/* {this.renderLink(
           "/answers",
           "Answers",
           require("../images/icon-question-mark.png")
-        )}
+        )} */}
         {this.renderLink(
           "/catechism-practice",
           "Catechism Practice",
@@ -135,11 +135,7 @@ class Menu extends Component {
           "Church Finder",
           require("../images/icon-church.png")
         )}
-        {this.renderLink(
-          "/about",
-          "About/Contribute",
-          require("../images/icon-info.png")
-        )}
+        {this.renderLink("/about", "About", require("../images/icon-info.png"))}
         {Platform.OS === "web" ? this.renderMobileLinks() : null}
       </Animated.View>
     );

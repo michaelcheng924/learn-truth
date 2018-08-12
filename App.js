@@ -8,7 +8,7 @@ class RNEntry extends Component {
   render() {
     return (
       <View>
-        <StatusBar barStyle="light-content" />
+        <StatusBar backgroundColor="#666" barStyle="light-content" />
         <App />
       </View>
     );

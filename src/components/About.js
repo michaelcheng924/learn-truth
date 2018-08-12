@@ -17,11 +17,11 @@ class About extends Component {
           learnTRUTH is currently built and maintained by a software engineer
           who desires to use his programming skills for God's glory.
         </Text>
-        <Text>
+        {/* <Text>
           Facebook ads are being used to share the gospel summary page of this
           app with hundreds of people every day.
         </Text>
-        {/* <Heading>Contributing</Heading>
+        <Heading>Contributing</Heading>
         <Text>
           If you would like to contribute to this project, here is how you can
           do so:

@@ -15,24 +15,59 @@ const AnswersContainer = styled.View`
   align-items: center;
 `;
 
-const QuestionsContainer = styled.View`
-  border-color: #757575;
-  border-radius: 5px;
-  border-width: 1px;
+const CourseListContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
   margin: 20px auto;
-  max-width: 720px;
-  overflow: hidden;
+  width: 700px;
 `;
 
-const QuestionContainer = styled.View`
-  border-color: #757575;
-  border-bottom-width: 1px;
-  padding: 10px 20px;
+const CourseContainer = styled.View`
+  border-color: #bdc3c7;
+  border-width: 1px;
+  display: flex;
+  height: 290px;
+  margin-bottom: 20px
+  width: 218px;
 `;
 
-const QuestionText = styled.Text`
-  color: #689f38;
-  font-size: 20px;
+const CourseImage = styled.Image`
+  height: 122px;
+  width: 216px;
+`;
+
+const CourseInfoContainer = styled.View`
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 12px;
+`;
+
+const CourseTitleContainer = styled.View``;
+
+const CourseInfoHeader = styled.Text`
+  font-size: 16px;
+`;
+
+const CourseInfoSubtitle = styled.Text`
+  color: #7f8c8d;
+  font-size: 13px;
+  margin-top: 6px;
+`;
+
+const CourseActionContainer = styled.View``;
+
+const CourseStartContainer = styled.View`
+  background: #2ecc71;
+  padding: 6px 0;
+`;
+
+const CourseStartText = styled.Text`
+  background: #2ecc71;
+  color: #fff;
+  text-align: center;
 `;
 
 class Answers extends Component {
@@ -54,21 +89,32 @@ class Answers extends Component {
       <AnswersContainer>
         <PageHeading>Answers</PageHeading>
         <TextInput placeholder="Search" style={textInputStyles} />
-        <QuestionsContainer>
+        <CourseListContainer>
           {ALL.map((item, index) => {
+            const { title, content, topics } = item;
+
             return (
-              <TouchableOpacity key={item.title}>
-                <QuestionContainer
-                  style={{
-                    borderBottomWidth: index === ALL.length - 1 ? 0 : 1
-                  }}
-                >
-                  <QuestionText>{item.title}</QuestionText>
-                </QuestionContainer>
+              <TouchableOpacity key={index}>
+                <CourseContainer>
+                  <CourseImage
+                    source={require("../images/answer_example.jpg")}
+                  />
+                  <CourseInfoContainer>
+                    <CourseTitleContainer>
+                      <CourseInfoHeader>{title}</CourseInfoHeader>
+                      <CourseInfoSubtitle>{content}</CourseInfoSubtitle>
+                    </CourseTitleContainer>
+                    <CourseActionContainer>
+                      <CourseStartContainer>
+                        <CourseStartText>Read</CourseStartText>
+                      </CourseStartContainer>
+                    </CourseActionContainer>
+                  </CourseInfoContainer>
+                </CourseContainer>
               </TouchableOpacity>
             );
           })}
-        </QuestionsContainer>
+        </CourseListContainer>
       </AnswersContainer>
     );
   }

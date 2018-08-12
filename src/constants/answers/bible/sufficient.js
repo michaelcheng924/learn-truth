@@ -1,16 +1,12 @@
-import React from "react";
-import { Markdown } from "../../../components/markdown";
+const title =
+  "Is the Bible sufficient for salvation and living the Christian life?";
 
-const Content = () => {
-  return (
-    <Markdown>{`
-      ## Is the Bible sufficient for salvation and living the Christian life?
-    `}</Markdown>
-  );
-};
+const content = `
+## Test
+`;
 
 export default {
-  Content,
-  title: "Is the Bible sufficient for salvation and living the Christian life?",
+  title,
+  content,
   topics: ["bible"]
 };

@@ -115,11 +115,11 @@ class Menu extends Component {
           "The Gospel",
           require("../images/menu-cross.png")
         )}
-        {/* {this.renderLink(
+        {this.renderLink(
           "/answers",
           "Answers",
           require("../images/icon-question-mark.png")
-        )} */}
+        )}
         {this.renderLink(
           "/catechism-practice",
           "Catechism Practice",

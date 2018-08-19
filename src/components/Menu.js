@@ -5,6 +5,8 @@ import { partial } from "lodash";
 import { Animated, Platform, TouchableOpacity } from "react-native";
 import { Redirect } from "./router/react-router";
 
+import { MENU_LINKS } from "../constants/pages";
+
 const MenuTextContainer = styled.View`
   align-items: center;
   border-color: #9e9e9e;
@@ -61,12 +63,12 @@ class Menu extends Component {
     });
   };
 
-  renderLink(url, label, source) {
+  renderLink(title, url, image) {
     return (
-      <TouchableOpacity onPress={partial(this.onLinkClick, url)}>
+      <TouchableOpacity key={url} onPress={partial(this.onLinkClick, url)}>
         <MenuTextContainer>
-          <MenuImage source={source} />
-          <MenuText>{label}</MenuText>
+          <MenuImage source={image} />
+          <MenuText>{title}</MenuText>
         </MenuTextContainer>
       </TouchableOpacity>
     );
@@ -109,33 +111,9 @@ class Menu extends Component {
         }}
       >
         {this.renderRedirect()}
-        {this.renderLink("/", "Home", require("../images/icon-home.png"))}
-        {this.renderLink(
-          "/gospel",
-          "The Gospel",
-          require("../images/menu-cross.png")
-        )}
-        {this.renderLink(
-          "/answers",
-          "Answers",
-          require("../images/icon-question-mark.png")
-        )}
-        {this.renderLink(
-          "/catechism-practice",
-          "Catechism Practice",
-          require("../images/icon-speech-bubbles.png")
-        )}
-        {this.renderLink(
-          "/resources",
-          "Resources",
-          require("../images/icon-list.png")
-        )}
-        {this.renderLink(
-          "/church-finder",
-          "Church Finder",
-          require("../images/icon-church.png")
-        )}
-        {this.renderLink("/about", "About", require("../images/icon-info.png"))}
+        {MENU_LINKS.map(({ title, url, image }) => {
+          return this.renderLink(title, url, image);
+        })}
         {Platform.OS === "web" ? this.renderMobileLinks() : null}
       </Animated.View>
     );

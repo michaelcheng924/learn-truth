@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
 import { TouchableOpacity, View } from "react-native";
+
+import { HOME_PAGES } from "../constants/pages";
 import Banner from "./Banner";
 
 const HomeContainer = styled.View``;
@@ -49,97 +51,33 @@ const LinkDescription = styled.Text`
 `;
 
 class Home extends Component {
+  renderLink({ title, description, url, backgroundColor, image }) {
+    return (
+      <TouchableOpacity
+        key={title}
+        onPress={() => this.props.history.push(url)}
+      >
+        <LinkContainer>
+          <LinkImageContainer style={{ backgroundColor }}>
+            <LinkImage source={image} />
+          </LinkImageContainer>
+          <View>
+            <LinkName>{title}</LinkName>
+            <LinkDescription>{description}</LinkDescription>
+          </View>
+        </LinkContainer>
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     return (
       <HomeContainer>
         <Banner />
         <LinksContainer>
-          <TouchableOpacity onPress={() => this.props.history.push("/gospel")}>
-            <LinkContainer>
-              <LinkImageContainer style={{ backgroundColor: "#1565C0" }}>
-                <LinkImage source={require("../images/menu-cross-white.png")} />
-              </LinkImageContainer>
-              <View>
-                <LinkName>The Gospel</LinkName>
-                <LinkDescription>
-                  Learn and share a gospel summary
-                </LinkDescription>
-              </View>
-            </LinkContainer>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.history.push("/answers")}>
-            <LinkContainer>
-              <LinkImageContainer style={{ backgroundColor: "#0097A7" }}>
-                <LinkImage
-                  source={require("../images/icon-question-mark-white.png")}
-                />
-              </LinkImageContainer>
-              <View>
-                <LinkName>Answers</LinkName>
-                <LinkDescription>Defend the Bible's teachings</LinkDescription>
-              </View>
-            </LinkContainer>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.history.push("/catechism-practice")}
-          >
-            <LinkContainer>
-              <LinkImageContainer style={{ backgroundColor: "#FF5722" }}>
-                <LinkImage
-                  source={require("../images/icon-speech-bubbles-white.png")}
-                />
-              </LinkImageContainer>
-              <View>
-                <LinkName>Catechism Practice</LinkName>
-                <LinkDescription>
-                  Learn through questions and answers
-                </LinkDescription>
-              </View>
-            </LinkContainer>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.history.push("/resources")}
-          >
-            <LinkContainer>
-              <LinkImageContainer style={{ backgroundColor: "#689F38" }}>
-                <LinkImage source={require("../images/icon-list-white.png")} />
-              </LinkImageContainer>
-              <View>
-                <LinkName>Resources</LinkName>
-                <LinkDescription>
-                  Resources to help you grow in your faith
-                </LinkDescription>
-              </View>
-            </LinkContainer>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.history.push("/church-finder")}
-          >
-            <LinkContainer>
-              <LinkImageContainer style={{ backgroundColor: "#795548" }}>
-                <LinkImage
-                  source={require("../images/icon-church-white.png")}
-                />
-              </LinkImageContainer>
-              <View>
-                <LinkName>Church Finder</LinkName>
-                <LinkDescription>Find a solid church to attend</LinkDescription>
-              </View>
-            </LinkContainer>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.history.push("/about")}>
-            <LinkContainer>
-              <LinkImageContainer style={{ backgroundColor: "#757575" }}>
-                <LinkImage source={require("../images/icon-info-white.png")} />
-              </LinkImageContainer>
-              <View>
-                <LinkName>About</LinkName>
-                <LinkDescription>
-                  Learn more about and support learntruth.io
-                </LinkDescription>
-              </View>
-            </LinkContainer>
-          </TouchableOpacity>
+          {HOME_PAGES.map(pageObject => {
+            return this.renderLink(pageObject);
+          })}
         </LinksContainer>
       </HomeContainer>
     );

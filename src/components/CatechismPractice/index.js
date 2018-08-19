@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { PageHeading, PageSubtitle } from "../shared";
+import { PageHeading, PageSubtitle, Picker } from "../shared";
 
 import {
   BOYS_GIRLS,
@@ -424,111 +424,88 @@ class CatechismPractice extends Component {
     });
   };
 
-  renderLanguageOption(label, isLeft) {
-    let backgroundColor = "#D7CCC8";
-    let color = "#757575";
-
-    if (this.state.language === label) {
-      backgroundColor = "#6D4C41";
-      color = "#fff";
-    }
+  renderLanguagePicker() {
+    const { language } = this.state;
 
     return (
-      <TouchableOpacity onPress={partial(this.onLanguageChange, label)}>
-        <CatechismOptionContainer
-          style={{
-            backgroundColor,
-            borderTopLeftRadius: isLeft ? 12 : 0,
-            borderBottomLeftRadius: isLeft ? 12 : 0,
-            borderTopRightRadius: isLeft ? 0 : 12,
-            borderBottomRightRadius: isLeft ? 0 : 12
-          }}
-        >
-          <Text style={{ color, fontSize: 14 }}>{label}</Text>
-        </CatechismOptionContainer>
-      </TouchableOpacity>
+      <Picker
+        options={[
+          {
+            isActive: language === "English",
+            label: "English",
+            position: "left"
+          },
+          {
+            isActive: language === "Español",
+            label: "Español",
+            position: "right"
+          }
+        ]}
+        activeBackgroundColor="#6D4C41"
+        inactiveBackgroundColor="#D7CCC8"
+        onChange={this.onLanguageChange}
+      />
     );
   }
 
-  renderCatechismOption(label, isLeft) {
-    let finalLabel = label;
+  renderCatechismPicker() {
+    const { catechism, language } = this.state;
 
-    if (this.state.language === "Español") {
-      if (label === "Boys and Girls") {
-        finalLabel = "El Catecismo Infantil";
-      } else if (label === "Westminster Shorter") {
-        finalLabel = "El Catecismo Menor";
-      }
-    }
+    const isEnglish = language === "English";
 
-    let backgroundColor = "#FFCCBC";
-    let color = "#757575";
-
-    if (this.state.catechism === finalLabel) {
-      backgroundColor = "#FF5722";
-      color = "#fff";
-    }
+    const isBoysGirls =
+      catechism === "Boys and Girls" || catechism === "El Catecismo Infantil";
+    const isWestminster =
+      catechism === "Westminster Shorter" || catechism === "El Catecismo Menor";
 
     return (
-      <TouchableOpacity onPress={partial(this.onCatechismChange, finalLabel)}>
-        <CatechismOptionContainer
-          style={{
-            backgroundColor,
-            borderTopLeftRadius: isLeft ? 12 : 0,
-            borderBottomLeftRadius: isLeft ? 12 : 0,
-            borderTopRightRadius: isLeft ? 0 : 12,
-            borderBottomRightRadius: isLeft ? 0 : 12
-          }}
-        >
-          <Text style={{ color }}>{finalLabel}</Text>
-        </CatechismOptionContainer>
-      </TouchableOpacity>
+      <Picker
+        options={[
+          {
+            isActive: isBoysGirls,
+            label: isEnglish ? "Boys and Girls" : "El Catecismo Infantil",
+            position: "left"
+          },
+          {
+            isActive: isWestminster,
+            label: isEnglish ? "Westminster Shorter" : "El Catecismo Menor",
+            position: "right"
+          }
+        ]}
+        activeBackgroundColor="#FF5722"
+        inactiveBackgroundColor="#FFCCBC"
+        onChange={this.onCatechismChange}
+      />
     );
   }
 
-  renderModeOption(label, position) {
+  renderModePicker() {
     const { mode } = this.state;
 
-    let backgroundColor = "#B2DFDB";
-    let color = "#757575";
-
-    if (mode === label) {
-      backgroundColor = "#009688";
-      color = "#fff";
-    }
-
-    let borderTopLeftRadius = 0;
-    let borderBottomLeftRadius = 0;
-    let borderTopRightRadius = 0;
-    let borderBottomRightRadius = 0;
-
-    if (position === "left") {
-      borderTopLeftRadius = 12;
-      borderBottomLeftRadius = 12;
-    } else if (position === "right") {
-      borderTopRightRadius = 12;
-      borderBottomRightRadius = 12;
-    }
-
     return (
-      <TouchableOpacity onPress={partial(this.onModeChange, label)}>
-        <CatechismOptionContainer
-          style={{
-            backgroundColor,
-            borderColor: "#757575",
-            borderLeftWidth:
-              position === "right" && mode === "Multiple choice" ? 1 : 0,
-            borderRightWidth:
-              position === "left" && mode === "Full answer" ? 1 : 0,
-            borderTopLeftRadius,
-            borderBottomLeftRadius,
-            borderTopRightRadius,
-            borderBottomRightRadius
-          }}
-        >
-          <Text style={{ color }}>{label}</Text>
-        </CatechismOptionContainer>
-      </TouchableOpacity>
+      <Picker
+        options={[
+          {
+            isActive: mode === "Multiple choice",
+            label: "Multiple choice",
+            position: "left",
+            showBorderRight: mode === "Full answer"
+          },
+          {
+            isActive: mode === "Fill in the blank",
+            label: "Fill in the blank"
+          },
+          {
+            isActive: mode === "Full answer",
+            label: "Full answer",
+            position: "right",
+            showBorderLeft: mode === "Multiple choice"
+          }
+        ]}
+        activeBackgroundColor="#009688"
+        inactiveBackgroundColor="#B2DFDB"
+        onChange={this.onModeChange}
+      />
     );
   }
 
@@ -718,19 +695,9 @@ class CatechismPractice extends Component {
             Questions and answers to learn the Bible's teachings. Great for
             families and children.
           </PageSubtitle>
-          <CatechismSwitcher>
-            {this.renderLanguageOption("English", true)}
-            {this.renderLanguageOption("Español")}
-          </CatechismSwitcher>
-          <CatechismSwitcher>
-            {this.renderCatechismOption("Boys and Girls", true)}
-            {this.renderCatechismOption("Westminster Shorter")}
-          </CatechismSwitcher>
-          <CatechismSwitcher>
-            {this.renderModeOption("Multiple choice", "left")}
-            {this.renderModeOption("Fill in the blank")}
-            {this.renderModeOption("Full answer", "right")}
-          </CatechismSwitcher>
+          {this.renderLanguagePicker()}
+          {this.renderCatechismPicker()}
+          {this.renderModePicker()}
           <CatechismSwitcher>{this.renderShowAnswer()}</CatechismSwitcher>
           <View style={styles.catechismCardContainer1}>
             <View style={styles.catechismCardContainer2}>

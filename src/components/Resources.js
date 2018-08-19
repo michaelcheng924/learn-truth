@@ -13,7 +13,9 @@ const ContentContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   margin: 20px auto;
-  max-width: 700px;
+  ${Platform.OS === "web"
+    ? "max-width: 700px; width: 100%;"
+    : "align-self: stretch;"};
 `;
 
 const ResourceContainer = styled.View`
@@ -34,13 +36,11 @@ const ResourceInfoContainer = styled.View``;
 const ResourceName = styled.Text`
   font-size: 25px;
   font-weight: 500;
-  width: 240px;
 `;
 
 const ResourceDescription = styled.Text`
   color: #616161;
   font-size: 18px;
-  width: 240px;
 `;
 
 const ResourceLink = styled.Text`

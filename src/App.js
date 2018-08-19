@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
+import { partial } from "lodash";
 
-import { Platform, ScrollView, View } from "react-native";
+import { Dimensions, Platform, ScrollView, View } from "react-native";
 import { Router, Route } from "./components/router/react-router";
 
+import { ROUTES } from "./constants/pages";
 import Navbar from "./components/Navbar";
 import Menu from "./components/Menu";
-import Home from "./components/Home";
-import Gospel from "./components/Gospel";
-import Answers from "./components/Answers";
-import CatechismPractice from "./components/CatechismPractice";
-import Resources from "./components/Resources";
-import ChurchFinder from "./components/ChurchFinder";
-import About from "./components/About";
 
 const MenuOverlayTouchable = styled.Touchable``;
 
@@ -62,16 +57,8 @@ class App extends Component {
     );
   }
 
-  renderGospel = ({ history }) => {
-    return <Gospel scrollView={this.scrollView} history={history} />;
-  };
-
-  renderResources = () => {
-    return <Resources scrollView={this.scrollView} />;
-  };
-
-  renderChurchFinder = () => {
-    return <ChurchFinder scrollView={this.scrollView} />;
+  renderRoute = (Component, { history }) => {
+    return <Component scrollView={this.scrollView} history={history} />;
   };
 
   render() {
@@ -86,13 +73,18 @@ class App extends Component {
             }}
           />
           <Navbar toggleMenu={this.toggleMenu} />
-          <Route exact path="/" component={Home} />
-          <Route path="/gospel" render={this.renderGospel} />
-          <Route path="/answers" component={Answers} />
-          <Route path="/catechism-practice" component={CatechismPractice} />
-          <Route path="/resources" render={this.renderResources} />
-          <Route path="/church-finder" render={this.renderChurchFinder} />
-          <Route path="/about" component={About} />
+          <View style={{ minHeight: Dimensions.get("window").height - 45 }}>
+            {ROUTES.map(({ exact, path, Component }) => {
+              return (
+                <Route
+                  key={path}
+                  exact={exact}
+                  path={path}
+                  render={partial(this.renderRoute, Component)}
+                />
+              );
+            })}
+          </View>
           {this.renderMenu()}
         </ScrollView>
       </Router>

@@ -17,14 +17,15 @@ import { ALL_DOCUMENTS } from "../constants/historical-documents";
 const HistoricalDocumentsContainer = styled.View`
   align-items: center;
   display: flex;
+  margin: 0 auto;
   padding: 0 20px 20px;
+  ${Platform.OS === "web"
+    ? "max-width: 700px; width: 100%;"
+    : "align-self: stretch;"};
 `;
 
 const DocumentsContainer = styled.View`
   margin: 0 auto;
-  ${Platform.OS === "web"
-    ? "max-width: 700px; width: 100%;"
-    : "align-self: stretch;"};
 `;
 
 const DocumentContainer = styled.View`

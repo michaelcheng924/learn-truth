@@ -10,7 +10,7 @@ const ScreenSwitcherContainer = styled.View`
 class ScreenSwitcher extends Component {
   state = {
     animLeftScreenRight: new Animated.Value(Dimensions.get("window").width),
-    animRightScreenLeft: new Animated.Value()
+    animRightScreenLeft: new Animated.Value(0)
   };
 
   componentDidUpdate(prevProps) {
@@ -18,12 +18,12 @@ class ScreenSwitcher extends Component {
       if (this.props.isLeft) {
         this.onSwitchToLeft();
       } else {
-        this.onSwitchToRight();
+        this.onReset();
       }
     }
   }
 
-  onSwitchToRight = () => {
+  onSwitchToLeft = () => {
     const { animLeftScreenRight, animRightScreenLeft } = this.state;
 
     const width = Dimensions.get("window").width;
@@ -39,7 +39,7 @@ class ScreenSwitcher extends Component {
     }).start();
   };
 
-  onSwitchToLeft = () => {
+  onReset = () => {
     const { animLeftScreenRight, animRightScreenLeft } = this.state;
 
     const width = Dimensions.get("window").width;

@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Platform, TouchableOpacity } from "react-native";
-import { PageHeading, PageSubtitle, Picker, Text } from "./shared";
+import { Platform, TouchableOpacity, View } from "react-native";
+import {
+  PageHeading,
+  PageSubtitle,
+  Picker,
+  ScreenSwitcher,
+  Text
+} from "./shared";
 
 import { ALL_DOCUMENTS } from "../constants/historical-documents";
 
 const HistoricalDocumentsContainer = styled.View`
-  align-items: center;
-  display: flex;
   padding: 0 20px 20px;
 `;
 
@@ -130,15 +134,34 @@ class HistoricalDocuments extends Component {
     );
   }
 
-  render() {
+  renderLeft() {
     return (
-      <HistoricalDocumentsContainer>
+      <View>
+        <Text>BLAHBLAH</Text>
+      </View>
+    );
+  }
+
+  renderRight() {
+    return (
+      <View style={{ alignItems: "center", display: "flex" }}>
         <PageHeading>Historical Documents</PageHeading>
         <PageSubtitle>
           Learn the historic creeds, confessions, and councils of the church
         </PageSubtitle>
         {this.renderFilters()}
         {this.renderDocuments()}
+      </View>
+    );
+  }
+
+  render() {
+    return (
+      <HistoricalDocumentsContainer>
+        <ScreenSwitcher
+          leftContent={this.renderLeft()}
+          rightContent={this.renderRight()}
+        />
         {/* {this.renderDropdown()} */}
       </HistoricalDocumentsContainer>
     );

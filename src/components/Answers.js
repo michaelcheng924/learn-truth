@@ -9,9 +9,10 @@ import {
   Platform,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  View
 } from "react-native";
-import { PageHeading } from "./shared";
+import { PageHeading, ScreenSwitcher } from "./shared";
 import { ALL, TOPIC_DATA } from "../constants/answers";
 
 const AnswersContainer = styled.View`
@@ -96,6 +97,7 @@ class Answers extends Component {
   state = {
     animSelectedRight: new Animated.Value(Dimensions.get("window").width),
     animListLeft: new Animated.Value(0),
+    isLeft: false,
     list: ALL,
     search: "",
     selected: null
@@ -119,32 +121,10 @@ class Answers extends Component {
   };
 
   onItemSelect = item => {
-    const width = Dimensions.get("window").width;
-
-    Animated.timing(this.state.animSelectedRight, {
-      toValue: 0,
-      duration: 250
-    }).start();
-
-    Animated.timing(this.state.animListLeft, {
-      toValue: width,
-      duration: 250
-    }).start();
-
     this.setState({ selected: item });
   };
 
   hideSelected = () => {
-    Animated.timing(this.state.animSelectedRight, {
-      toValue: Dimensions.get("window").width,
-      duration: 250
-    }).start();
-
-    Animated.timing(this.state.animListLeft, {
-      toValue: 0,
-      duration: 250
-    }).start();
-
     this.setState({ selected: null });
   };
 
@@ -170,14 +150,27 @@ class Answers extends Component {
     );
   }
 
-  render() {
-    const {
-      animSelectedRight,
-      animListLeft,
-      list,
-      search,
-      selected
-    } = this.state;
+  renderSelected() {
+    const { selected } = this.state;
+
+    return (
+      <View>
+        <TouchableOpacity onPress={this.hideSelected}>
+          <HideSelected>
+            <HideSelectedImage
+              source={require("../images/icon-chevron-left.png")}
+            />
+          </HideSelected>
+        </TouchableOpacity>
+        <ContentContainer>
+          <Markdown>{get(selected, "content", "")}</Markdown>
+        </ContentContainer>
+      </View>
+    );
+  }
+
+  renderMain() {
+    const { list, search } = this.state;
 
     const textInputStyles =
       Platform.OS === "web"
@@ -192,80 +185,62 @@ class Answers extends Component {
           }
         : styles.searchInput;
 
-    const width = Dimensions.get("window").width;
+    return (
+      <View style={{ alignItems: "center", display: "flex" }}>
+        <PageHeading>Answers</PageHeading>
+        <TextInput
+          onChangeText={this.onSearchChange}
+          placeholder="Search"
+          style={textInputStyles}
+          value={search}
+        />
+        <ItemsContainer>
+          {list.map((item, index) => {
+            const { title, topics } = item;
+
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={partial(this.onItemSelect, item)}
+              >
+                <ItemContainer>
+                  {this.renderTextWithHighlight(ItemTitle, title, "#333")}
+                  <TopicsContainer>
+                    {topics.map(topic => {
+                      return (
+                        <TopicContainer
+                          key={topic}
+                          style={{ backgroundColor: TOPIC_DATA[topic].color }}
+                        >
+                          <TopicIcon source={TOPIC_DATA[topic].icon} />
+                          {this.renderTextWithHighlight(
+                            TopicText,
+                            topic,
+                            "#84FFFF"
+                          )}
+                        </TopicContainer>
+                      );
+                    })}
+                  </TopicsContainer>
+                </ItemContainer>
+              </TouchableOpacity>
+            );
+          })}
+        </ItemsContainer>
+      </View>
+    );
+  }
+
+  render() {
+    const { selected } = this.state;
 
     return (
       <AnswersContainer>
-        <Animated.View
-          style={{
-            width,
-            backgroundColor: "#fff",
-            overflow: "hidden",
-            position: "absolute",
-            right: animSelectedRight
-          }}
-        >
-          <TouchableOpacity onPress={this.hideSelected}>
-            <HideSelected>
-              <HideSelectedImage
-                source={require("../images/icon-chevron-left.png")}
-              />
-            </HideSelected>
-          </TouchableOpacity>
-          <ContentContainer>
-            <Markdown>{get(selected, "content", "")}</Markdown>
-          </ContentContainer>
-        </Animated.View>
-        <Animated.View
-          style={{
-            width,
-            alignItems: "center",
-            display: "flex",
-            left: animListLeft,
-            position: "absolute"
-          }}
-        >
-          <PageHeading>Answers</PageHeading>
-          <TextInput
-            onChangeText={this.onSearchChange}
-            placeholder="Search"
-            style={textInputStyles}
-            value={search}
-          />
-          <ItemsContainer>
-            {list.map((item, index) => {
-              const { title, topics } = item;
-
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={partial(this.onItemSelect, item)}
-                >
-                  <ItemContainer>
-                    {this.renderTextWithHighlight(ItemTitle, title, "#333")}
-                    <TopicsContainer>
-                      {topics.map(topic => {
-                        return (
-                          <TopicContainer
-                            key={topic}
-                            style={{ backgroundColor: TOPIC_DATA[topic].color }}
-                          >
-                            <TopicIcon source={TOPIC_DATA[topic].icon} />
-                            {this.renderTextWithHighlight(
-                              TopicText,
-                              topic,
-                              "#84FFFF"
-                            )}
-                          </TopicContainer>
-                        );
-                      })}
-                    </TopicsContainer>
-                  </ItemContainer>
-                </TouchableOpacity>
-              );
-            })}
-          </ItemsContainer>
-        </Animated.View>
+        <ScreenSwitcher
+          isLeft={!!selected}
+          leftContent={this.renderSelected()}
+          rightContent={this.renderMain()}
+        />
       </AnswersContainer>
     );
   }

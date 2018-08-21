@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
+import { get, partial } from "lodash";
 
-import { Platform, TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import {
+  Markdown,
   PageHeading,
   PageSubtitle,
   Picker,
@@ -13,6 +15,8 @@ import {
 import { ALL_DOCUMENTS } from "../constants/historical-documents";
 
 const HistoricalDocumentsContainer = styled.View`
+  align-items: center;
+  display: flex;
   padding: 0 20px 20px;
 `;
 
@@ -49,6 +53,7 @@ class HistoricalDocuments extends Component {
     currentDocument: null,
     dropdownOpen: false,
     filter: "All",
+    isLeft: false,
     list: ALL_DOCUMENTS,
     selectedIndex: 0
   };
@@ -62,6 +67,22 @@ class HistoricalDocuments extends Component {
           : ALL_DOCUMENTS.filter(({ type }) => {
               return type === filter;
             })
+    });
+  };
+
+  onDocumentSelect = document => {
+    this.setState({
+      currentDocument: document,
+      isLeft: true,
+      selectedIndex: 0
+    });
+  };
+
+  onBack = () => {
+    this.setState({ isLeft: false, selectedIndex: 0 }, () => {
+      setTimeout(() => {
+        this.setState({ currentDocument: null });
+      }, 250);
     });
   };
 
@@ -102,29 +123,29 @@ class HistoricalDocuments extends Component {
   renderDocuments() {
     return (
       <DocumentsContainer>
-        {this.state.list.map(({ type, name, description, year }) => {
+        {this.state.list.map(document => {
           let backgroundColor = "";
 
-          if (type === "Creeds") {
+          if (document.type === "Creeds") {
             backgroundColor = "#039BE5";
-          } else if (type === "Confessions") {
+          } else if (document.type === "Confessions") {
             backgroundColor = "#0097A7";
           }
 
           return (
             <TouchableOpacity
-              key={name}
-              onPress={() =>
-                this.setState({ currentDocument: document, selectedIndex: 0 })
-              }
+              key={document.name}
+              onPress={partial(this.onDocumentSelect, document)}
             >
               <DocumentContainer>
                 <DocumentTitleContainer style={{ backgroundColor }}>
-                  <DocumentTitle>{name}</DocumentTitle>
+                  <DocumentTitle>{document.name}</DocumentTitle>
                 </DocumentTitleContainer>
                 <DocumentDescriptionContainer>
-                  <Text>{year}</Text>
-                  <Text style={{ marginBottom: 0 }}>{description}</Text>
+                  <Text>{document.year}</Text>
+                  <Text style={{ marginBottom: 0 }}>
+                    {document.description}
+                  </Text>
                 </DocumentDescriptionContainer>
               </DocumentContainer>
             </TouchableOpacity>
@@ -136,34 +157,42 @@ class HistoricalDocuments extends Component {
 
   renderLeft() {
     return (
-      <View>
-        <Text>BLAHBLAH</Text>
-      </View>
+      <HistoricalDocumentsContainer>
+        <PageHeading style={{ marginBottom: 0, marginTop: 0 }}>
+          {get(this.state.currentDocument, "name", "")}
+        </PageHeading>
+        <Markdown
+          styles={{
+            Text: { color: "#000", fontSize: 18, lineHeight: 28, opacity: 0.84 }
+          }}
+        >
+          {get(this.state.currentDocument, "content", "")}
+        </Markdown>
+      </HistoricalDocumentsContainer>
     );
   }
 
   renderRight() {
     return (
-      <View style={{ alignItems: "center", display: "flex" }}>
+      <HistoricalDocumentsContainer>
         <PageHeading>Historical Documents</PageHeading>
         <PageSubtitle>
           Learn the historic creeds, confessions, and councils of the church
         </PageSubtitle>
         {this.renderFilters()}
         {this.renderDocuments()}
-      </View>
+      </HistoricalDocumentsContainer>
     );
   }
 
   render() {
     return (
-      <HistoricalDocumentsContainer>
-        <ScreenSwitcher
-          leftContent={this.renderLeft()}
-          rightContent={this.renderRight()}
-        />
-        {/* {this.renderDropdown()} */}
-      </HistoricalDocumentsContainer>
+      <ScreenSwitcher
+        isLeft={!!this.state.isLeft}
+        leftContent={this.renderLeft()}
+        onBack={this.onBack}
+        rightContent={this.renderRight()}
+      />
     );
   }
 }

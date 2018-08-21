@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Animated, Dimensions } from "react-native";
+import { Animated, Dimensions, TouchableOpacity, View } from "react-native";
 
-const ScreenSwitcherContainer = styled.View`
-  padding: 0 20px 20px;
+const BackContainer = styled.View`
+  align-items: center;
+  background: #2196f3;
+  border-radius: 18px;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  margin: 20px 0 20px 20px;
+  width: 36px;
+`;
+
+const BackImage = styled.Image`
+  height: 20px;
+  width: 20px;
 `;
 
 class ScreenSwitcher extends Component {
@@ -55,6 +67,16 @@ class ScreenSwitcher extends Component {
     }).start();
   };
 
+  renderBack() {
+    return (
+      <TouchableOpacity onPress={this.props.onBack}>
+        <BackContainer>
+          <BackImage source={require("../../images/icon-chevron-left.png")} />
+        </BackContainer>
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     const { animLeftScreenRight, animRightScreenLeft } = this.state;
 
@@ -63,7 +85,7 @@ class ScreenSwitcher extends Component {
     const width = Dimensions.get("window").width;
 
     return (
-      <ScreenSwitcherContainer>
+      <View>
         <Animated.View
           style={{
             width,
@@ -71,6 +93,7 @@ class ScreenSwitcher extends Component {
             right: animLeftScreenRight
           }}
         >
+          {this.renderBack()}
           {leftContent}
         </Animated.View>
         <Animated.View
@@ -82,7 +105,7 @@ class ScreenSwitcher extends Component {
         >
           {rightContent}
         </Animated.View>
-      </ScreenSwitcherContainer>
+      </View>
     );
   }
 }

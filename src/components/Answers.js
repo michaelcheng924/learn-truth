@@ -16,6 +16,7 @@ import { PageHeading, ScreenSwitcher } from "./shared";
 import { ALL, TOPIC_DATA } from "../constants/answers";
 
 const AnswersContainer = styled.View`
+  align-items: center;
   display: flex;
   padding: 0 10px;
 `;
@@ -154,7 +155,7 @@ class Answers extends Component {
     const { selected } = this.state;
 
     return (
-      <View>
+      <AnswersContainer>
         <TouchableOpacity onPress={this.hideSelected}>
           <HideSelected>
             <HideSelectedImage
@@ -165,7 +166,7 @@ class Answers extends Component {
         <ContentContainer>
           <Markdown>{get(selected, "content", "")}</Markdown>
         </ContentContainer>
-      </View>
+      </AnswersContainer>
     );
   }
 
@@ -186,7 +187,7 @@ class Answers extends Component {
         : styles.searchInput;
 
     return (
-      <View style={{ alignItems: "center", display: "flex" }}>
+      <AnswersContainer>
         <PageHeading>Answers</PageHeading>
         <TextInput
           onChangeText={this.onSearchChange}
@@ -227,7 +228,7 @@ class Answers extends Component {
             );
           })}
         </ItemsContainer>
-      </View>
+      </AnswersContainer>
     );
   }
 
@@ -235,13 +236,11 @@ class Answers extends Component {
     const { selected } = this.state;
 
     return (
-      <AnswersContainer>
-        <ScreenSwitcher
-          isLeft={!!selected}
-          leftContent={this.renderSelected()}
-          rightContent={this.renderMain()}
-        />
-      </AnswersContainer>
+      <ScreenSwitcher
+        isLeft={!!selected}
+        leftContent={this.renderSelected()}
+        rightContent={this.renderMain()}
+      />
     );
   }
 }

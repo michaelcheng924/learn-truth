@@ -17,10 +17,10 @@ const ROUTES = [
     path: "/gospel",
     Component: Gospel
   },
-  // {
-  //   path: '/answers',
-  //   Component: Answers
-  // },
+  {
+    path: "/answers",
+    Component: Answers
+  },
   {
     path: "/catechism-practice",
     Component: CatechismPractice
@@ -51,13 +51,13 @@ const HOME_PAGES = [
     backgroundColor: "#1565C0",
     image: require("../images/menu-cross-white.png")
   },
-  // {
-  //   title: "Answers",
-  //   description: "Defend the Bible's teachings",
-  //   url: "/answers",
-  //   backgroundColor: "#0097A7",
-  //   image: require("../images/icon-question-mark-white.png")
-  // },
+  {
+    title: "Answers",
+    description: "Defend the Bible's teachings",
+    url: "/answers",
+    backgroundColor: "#0097A7",
+    image: require("../images/icon-question-mark-white.png")
+  },
   {
     title: "Catechism Practice",
     description: "Learn through questions and answers",

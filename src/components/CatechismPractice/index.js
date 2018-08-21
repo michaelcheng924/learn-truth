@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
-import { defer, every, partial, shuffle, some } from "lodash";
+import { defer, every, shuffle, some } from "lodash";
 
 import {
   Animated,

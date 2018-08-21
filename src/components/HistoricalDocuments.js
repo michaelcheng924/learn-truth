@@ -4,10 +4,10 @@ import { get, partial } from "lodash";
 
 import { Platform, TouchableOpacity } from "react-native";
 import {
-  Markdown,
   PageHeading,
   PageSubtitle,
   Picker,
+  renderMarkdown,
   ScreenSwitcher,
   Text
 } from "./shared";
@@ -158,16 +158,10 @@ class HistoricalDocuments extends Component {
   renderLeft() {
     return (
       <HistoricalDocumentsContainer>
-        <PageHeading style={{ marginBottom: 0, marginTop: 0 }}>
+        <PageHeading style={{ marginBottom: 20, marginTop: 0 }}>
           {get(this.state.currentDocument, "name", "")}
         </PageHeading>
-        <Markdown
-          styles={{
-            Text: { color: "#000", fontSize: 18, lineHeight: 28, opacity: 0.84 }
-          }}
-        >
-          {get(this.state.currentDocument, "content", "")}
-        </Markdown>
+        {renderMarkdown(get(this.state.currentDocument, "content", ""))}
       </HistoricalDocumentsContainer>
     );
   }

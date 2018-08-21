@@ -99,8 +99,7 @@ class ScreenSwitcher extends Component {
         <Animated.View
           style={{
             width,
-            left: animRightScreenLeft,
-            position: "absolute"
+            left: animRightScreenLeft
           }}
         >
           {rightContent}

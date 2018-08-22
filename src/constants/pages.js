@@ -2,7 +2,7 @@ import Home from "../components/Home";
 import Gospel from "../components/Gospel";
 // import Answers from "../components/Answers";
 import CatechismPractice from "../components/CatechismPractice";
-import HistoricalDocuments from "../components/HistoricalDocuments";
+import CreedsConfessions from "../components/CreedsConfessions";
 import Resources from "../components/Resources";
 import ChurchFinder from "../components/ChurchFinder";
 import About from "../components/About";
@@ -26,8 +26,8 @@ const ROUTES = [
     Component: CatechismPractice
   },
   {
-    path: "/historical-documents",
-    Component: HistoricalDocuments
+    path: "/creeds-confessions",
+    Component: CreedsConfessions
   },
   {
     path: "/resources",
@@ -66,9 +66,9 @@ const HOME_PAGES = [
     image: require("../images/icon-speech-bubbles-white.png")
   },
   {
-    title: "Historical Documents",
-    description: "Learn the creeds, confessions, and councils",
-    url: "/historical-documents",
+    title: "Creeds and Confessions",
+    description: "Historical documents that have shaped the church",
+    url: "/creeds-confessions",
     backgroundColor: "#039BE5",
     image: require("../images/icon-documents-white.png")
   },
@@ -117,8 +117,8 @@ const MENU_LINKS = [
     image: require("../images/icon-speech-bubbles.png")
   },
   {
-    title: "Historical Documents",
-    url: "/historical-documents",
+    title: "Creeds and Confessions",
+    url: "/creeds-confessions",
     image: require("../images/icon-documents.png")
   },
   {

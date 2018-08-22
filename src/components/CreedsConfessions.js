@@ -12,9 +12,9 @@ import {
   Text
 } from "./shared";
 
-import { ALL_DOCUMENTS } from "../constants/historical-documents";
+import { ALL_DOCUMENTS } from "../constants/creeds-confessions";
 
-const HistoricalDocumentsContainer = styled.View`
+const CreedsConfessionsContainer = styled.View`
   align-items: center;
   display: flex;
   margin: 0 auto;
@@ -49,7 +49,7 @@ const DocumentDescriptionContainer = styled.View`
   padding: 10px 20px;
 `;
 
-class HistoricalDocuments extends Component {
+class CreedsConfessions extends Component {
   state = {
     currentDocument: null,
     dropdownOpen: false,
@@ -158,25 +158,25 @@ class HistoricalDocuments extends Component {
 
   renderLeft() {
     return (
-      <HistoricalDocumentsContainer>
-        <PageHeading style={{ marginBottom: 20, marginTop: 0 }}>
-          {get(this.state.currentDocument, "name", "")}
-        </PageHeading>
-        {renderMarkdown(get(this.state.currentDocument, "content", ""))}
-      </HistoricalDocumentsContainer>
-    );
-  }
-
-  renderRight() {
-    return (
-      <HistoricalDocumentsContainer>
+      <CreedsConfessionsContainer>
         <PageHeading>Historical Documents</PageHeading>
         <PageSubtitle>
           Learn the historic creeds, confessions, and councils of the church
         </PageSubtitle>
         {this.renderFilters()}
         {this.renderDocuments()}
-      </HistoricalDocumentsContainer>
+      </CreedsConfessionsContainer>
+    );
+  }
+
+  renderRight() {
+    return (
+      <CreedsConfessionsContainer>
+        <PageHeading style={{ marginBottom: 20, marginTop: 0 }}>
+          {get(this.state.currentDocument, "name", "")}
+        </PageHeading>
+        {renderMarkdown(get(this.state.currentDocument, "content", ""))}
+      </CreedsConfessionsContainer>
     );
   }
 
@@ -192,4 +192,4 @@ class HistoricalDocuments extends Component {
   }
 }
 
-export default HistoricalDocuments;
+export default CreedsConfessions;

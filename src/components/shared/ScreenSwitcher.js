@@ -21,34 +21,40 @@ const BackImage = styled.Image`
 
 class ScreenSwitcher extends Component {
   state = {
-    animLeftScreenRight: new Animated.Value(Dimensions.get("window").width),
-    animRightScreenLeft: new Animated.Value(0)
+    animLeftScreenRight: new Animated.Value(0),
+    animRightScreenLeft: new Animated.Value(Dimensions.get("window").width),
+    leftComplete: true,
+    rightComplete: false
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.isLeft !== prevProps.isLeft) {
       if (this.props.isLeft) {
-        this.onSwitchToLeft();
+        this.onSwitchToRight();
       } else {
         this.onReset();
       }
     }
   }
 
-  onSwitchToLeft = () => {
+  onSwitchToRight = () => {
     const { animLeftScreenRight, animRightScreenLeft } = this.state;
 
     const width = Dimensions.get("window").width;
 
     Animated.timing(animLeftScreenRight, {
-      toValue: 0,
+      toValue: width,
       duration: 250
     }).start();
 
     Animated.timing(animRightScreenLeft, {
-      toValue: width,
+      toValue: 0,
       duration: 250
     }).start();
+
+    setTimeout(() => {
+      this.setState({ leftComplete: false, rightComplete: true });
+    }, 250);
   };
 
   onReset = () => {
@@ -57,28 +63,74 @@ class ScreenSwitcher extends Component {
     const width = Dimensions.get("window").width;
 
     Animated.timing(animLeftScreenRight, {
-      toValue: width,
+      toValue: 0,
       duration: 250
     }).start();
 
     Animated.timing(animRightScreenLeft, {
-      toValue: 0,
+      toValue: width,
       duration: 250
     }).start();
+
+    setTimeout(() => {
+      this.setState({ leftComplete: true, rightComplete: false });
+    }, 250);
   };
 
   renderBack() {
     return (
       <TouchableOpacity onPress={this.props.onBack}>
-        <BackContainer>
-          <BackImage source={require("../../images/icon-chevron-left.png")} />
+        <BackContainer
+          style={{
+            elevation: 10,
+            shadowOffset: { width: 0, height: 3 },
+            shadowRadius: 5,
+            shadowColor: "#000",
+            shadowOpacity: 0.2
+          }}
+        >
+          <View
+            style={{
+              height: 36,
+              width: 36,
+              borderRadius: 18,
+              shadowOffset: { width: 0, height: 6 },
+              shadowRadius: 10,
+              shadowColor: "#000",
+              shadowOpacity: 0.14
+            }}
+          >
+            <View
+              style={{
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
+                height: 36,
+                width: 36,
+                borderRadius: 18,
+                shadowOffset: { width: 0, height: 1 },
+                shadowRadius: 18,
+                shadowColor: "#000",
+                shadowOpacity: 0.12
+              }}
+            >
+              <BackImage
+                source={require("../../images/icon-chevron-left.png")}
+              />
+            </View>
+          </View>
         </BackContainer>
       </TouchableOpacity>
     );
   }
 
   render() {
-    const { animLeftScreenRight, animRightScreenLeft } = this.state;
+    const {
+      animLeftScreenRight,
+      animRightScreenLeft,
+      leftComplete,
+      rightComplete
+    } = this.state;
 
     const { leftContent, rightContent } = this.props;
 
@@ -89,19 +141,20 @@ class ScreenSwitcher extends Component {
         <Animated.View
           style={{
             width,
-            position: "absolute",
+            position: leftComplete ? "relative" : "absolute",
             right: animLeftScreenRight
           }}
         >
-          {this.renderBack()}
           {leftContent}
         </Animated.View>
         <Animated.View
           style={{
             width,
-            left: animRightScreenLeft
+            left: animRightScreenLeft,
+            position: rightComplete ? "relative" : "absolute"
           }}
         >
+          {this.renderBack()}
           {rightContent}
         </Animated.View>
       </View>

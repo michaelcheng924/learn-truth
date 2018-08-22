@@ -1,23 +1,6 @@
 import React, { Component } from "react";
-import styled from "styled-components/primitives";
 
 import { Animated, Dimensions, TouchableOpacity, View } from "react-native";
-
-const BackContainer = styled.View`
-  align-items: center;
-  background: #2196f3;
-  border-radius: 18px;
-  display: flex;
-  height: 36px;
-  justify-content: center;
-  margin: 20px 0 20px 20px;
-  width: 36px;
-`;
-
-const BackImage = styled.Image`
-  height: 20px;
-  width: 20px;
-`;
 
 class ScreenSwitcher extends Component {
   state = {
@@ -78,50 +61,9 @@ class ScreenSwitcher extends Component {
   };
 
   renderBack() {
-    return (
-      <TouchableOpacity onPress={this.props.onBack}>
-        <BackContainer
-          style={{
-            elevation: 10,
-            shadowOffset: { width: 0, height: 3 },
-            shadowRadius: 5,
-            shadowColor: "#000",
-            shadowOpacity: 0.2
-          }}
-        >
-          <View
-            style={{
-              height: 36,
-              width: 36,
-              borderRadius: 18,
-              shadowOffset: { width: 0, height: 6 },
-              shadowRadius: 10,
-              shadowColor: "#000",
-              shadowOpacity: 0.14
-            }}
-          >
-            <View
-              style={{
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                height: 36,
-                width: 36,
-                borderRadius: 18,
-                shadowOffset: { width: 0, height: 1 },
-                shadowRadius: 18,
-                shadowColor: "#000",
-                shadowOpacity: 0.12
-              }}
-            >
-              <BackImage
-                source={require("../../images/icon-chevron-left.png")}
-              />
-            </View>
-          </View>
-        </BackContainer>
-      </TouchableOpacity>
-    );
+    const { onBack, renderBack } = this.props;
+
+    return <TouchableOpacity onPress={onBack}>{renderBack()}</TouchableOpacity>;
   }
 
   render() {

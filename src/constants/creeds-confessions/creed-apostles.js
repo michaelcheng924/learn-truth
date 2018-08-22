@@ -1,7 +1,7 @@
 const APOSTLES_CREED = `
 I believe in God, the Father almighty,
 > creator of heaven and earth.
----
+
 I believe in Jesus Christ, his only Son, our Lord,
 > who was conceived by the Holy Spirit
 
@@ -20,7 +20,7 @@ I believe in Jesus Christ, his only Son, our Lord,
 > and is seated at the right hand of God the Father almighty.
 
 > From there he will come to judge the living and the dead.
----
+
 I believe in the Holy Spirit,
 > the holy catholic church,
 
@@ -31,7 +31,7 @@ I believe in the Holy Spirit,
 > the resurrection of the body,
 
 > and the life everlasting. Amen.
----
+
 _* that is, the true Christian church of all times and all places_
 `;
 

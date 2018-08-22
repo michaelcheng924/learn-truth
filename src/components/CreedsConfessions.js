@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 import { get, partial } from "lodash";
 
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import {
   PageHeading,
   PageSubtitle,
@@ -15,13 +15,22 @@ import {
 import { ALL_DOCUMENTS } from "../constants/creeds-confessions";
 
 const CreedsConfessionsContainer = styled.View`
+  margin: 0 auto;
+  ${Platform.OS === "web"
+    ? "max-width: 720px; width: 100%;"
+    : "align-self: stretch;"};
+`;
+
+const ContentContainer = styled.View`
   align-items: center;
   display: flex;
-  margin: 0 auto;
-  padding: 0 20px 20px;
-  ${Platform.OS === "web"
-    ? "max-width: 700px; width: 100%;"
-    : "align-self: stretch;"};
+  padding: 0 10px 20px;
+`;
+
+const BackText = styled.Text`
+  color: #689f38;
+  font-size: 18px;
+  margin: 20px;
 `;
 
 const DocumentsContainer = styled.View`
@@ -49,14 +58,50 @@ const DocumentDescriptionContainer = styled.View`
   padding: 10px 20px;
 `;
 
+const ConfessionChapterList = styled.View`
+  border-color: #bdbdbd;
+  border-width: 1px;
+  border-bottom-width: 0;
+  margin-top: 20px;
+`;
+
+const ConfessionChapterTitle = styled.View`
+  align-items: center;
+  border-color: #bdbdbd;
+  border-bottom-width: 1px;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+`;
+
+const ConfessionChapterTitleText = styled.Text`
+  font-size: 18px;
+  font-weight: 500;
+`;
+
+const ConfessionChapterContent = styled.View`
+  padding: 10px 20px;
+`;
+
 class CreedsConfessions extends Component {
   state = {
+    confessionContent: [],
     currentDocument: null,
     dropdownOpen: false,
     filter: "All",
     isLeft: false,
     list: ALL_DOCUMENTS,
-    selectedIndex: 0
+    selectedChapterIndex: null
+  };
+
+  scrollToTop = () => {
+    if (Platform.OS === "web") {
+      window.scrollTo(0, 0);
+    } else {
+      setTimeout(() => {
+        this.props.scrollView.scrollTo({ y: 0, animated: true });
+      });
+    }
   };
 
   onFilterChange = filter => {
@@ -75,16 +120,30 @@ class CreedsConfessions extends Component {
     this.setState({
       currentDocument: document,
       isLeft: true,
-      selectedIndex: 0
+      selectedChapterIndex: null
     });
+
+    this.scrollToTop();
   };
 
   onBack = () => {
-    this.setState({ isLeft: false, selectedIndex: 0 }, () => {
+    this.setState({ isLeft: false, selectedChapterIndex: null }, () => {
       setTimeout(() => {
         this.setState({ currentDocument: null });
       }, 250);
     });
+  };
+
+  onChapterSelect = index => {
+    this.setState({
+      selectedChapterIndex: index
+    });
+
+    this.scrollToTop();
+  };
+
+  renderBack = () => {
+    return <BackText>← Back to all creeds and confessions</BackText>;
   };
 
   renderFilters() {
@@ -159,12 +218,14 @@ class CreedsConfessions extends Component {
   renderLeft() {
     return (
       <CreedsConfessionsContainer>
-        <PageHeading>Historical Documents</PageHeading>
-        <PageSubtitle>
-          Learn the historic creeds, confessions, and councils of the church
-        </PageSubtitle>
-        {this.renderFilters()}
-        {this.renderDocuments()}
+        <ContentContainer>
+          <PageHeading>Historical Documents</PageHeading>
+          <PageSubtitle>
+            Learn the historic creeds, confessions, and councils of the church
+          </PageSubtitle>
+          {this.renderFilters()}
+          {this.renderDocuments()}
+        </ContentContainer>
       </CreedsConfessionsContainer>
     );
   }
@@ -172,11 +233,73 @@ class CreedsConfessions extends Component {
   renderRight() {
     return (
       <CreedsConfessionsContainer>
-        <PageHeading style={{ marginBottom: 20, marginTop: 0 }}>
-          {get(this.state.currentDocument, "name", "")}
-        </PageHeading>
-        {renderMarkdown(get(this.state.currentDocument, "content", ""))}
+        <ContentContainer>
+          <PageHeading style={{ marginTop: 0 }}>
+            {get(this.state.currentDocument, "name", "")}
+          </PageHeading>
+          {get(this.state.currentDocument, "type", "") === "Creeds"
+            ? renderMarkdown(get(this.state.currentDocument, "content", ""))
+            : this.renderConfession()}
+        </ContentContainer>
       </CreedsConfessionsContainer>
+    );
+  }
+
+  renderConfession() {
+    const { currentDocument, selectedChapterIndex } = this.state;
+
+    if (!currentDocument) {
+      return null;
+    }
+
+    const chapter = currentDocument.content[selectedChapterIndex];
+
+    if (selectedChapterIndex || selectedChapterIndex === 0) {
+      return (
+        <View style={{ alignItems: "center", display: "flex" }}>
+          <TouchableOpacity
+            onPress={() => this.setState({ selectedChapterIndex: null })}
+          >
+            <BackText style={{ marginBottom: 0 }}>Table of contents</BackText>
+          </TouchableOpacity>
+          <ConfessionChapterList style={{ borderBottomWidth: 1 }}>
+            <ConfessionChapterTitle>
+              <ConfessionChapterTitleText>
+                {`${chapter.chapter}. ${chapter.title}`}
+              </ConfessionChapterTitleText>
+            </ConfessionChapterTitle>
+            <ConfessionChapterContent>
+              {chapter.content.map(paragraph => {
+                return (
+                  <Text>
+                    {paragraph.map((section, index) => {
+                      return <Text key={index}>{`${section.text} `}</Text>;
+                    })}
+                  </Text>
+                );
+              })}
+            </ConfessionChapterContent>
+          </ConfessionChapterList>
+        </View>
+      );
+    }
+
+    return (
+      <ConfessionChapterList>
+        {currentDocument.content.map((item, index) => {
+          return (
+            <View key={item.title}>
+              <TouchableOpacity onPress={partial(this.onChapterSelect, index)}>
+                <ConfessionChapterTitle>
+                  <ConfessionChapterTitleText style={{ color: "#689F38" }}>
+                    {`${item.chapter}. ${item.title}`}
+                  </ConfessionChapterTitleText>
+                </ConfessionChapterTitle>
+              </TouchableOpacity>
+            </View>
+          );
+        })}
+      </ConfessionChapterList>
     );
   }
 
@@ -186,6 +309,7 @@ class CreedsConfessions extends Component {
         isLeft={!!this.state.isLeft}
         leftContent={this.renderLeft()}
         onBack={this.onBack}
+        renderBack={this.renderBack}
         rightContent={this.renderRight()}
       />
     );

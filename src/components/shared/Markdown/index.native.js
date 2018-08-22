@@ -8,7 +8,7 @@ const renderMarkdown = content => {
         Text: { color: "#000", fontSize: 18, lineHeight: 28, opacity: 0.84 },
         Paragraph: {
           marginBottom: 0,
-          marginTop: 0
+          marginTop: 20
         },
         BlockQuote: {
           borderLeftWidth: 0,

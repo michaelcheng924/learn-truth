@@ -9,12 +9,13 @@ body {
   opacity: .84;
 }
 
-.markdown p {
+.markdown > p {
   margin: 0;
+  margin-top: 20px;
 }
 
 .markdown blockquote {
-  margin: 0 0 6px 30px;
+  margin: 6px 0 0 30px;
 }
 
 .markdown blockquote p {

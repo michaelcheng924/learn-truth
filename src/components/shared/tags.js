@@ -26,7 +26,7 @@ const Heading = styled.Text`
 const Text = styled.Text`
   color: #000;
   font-size: 18px;
-  line-height: 28;
+  line-height: 28px;
   margin-bottom: 21px;
   opacity: 0.84;
 `;

@@ -22,7 +22,7 @@ I believe in Jesus Christ, his only Son, our Lord,
 > From there he will come to judge the living and the dead.
 
 I believe in the Holy Spirit,
-> the holy catholic church,
+> the holy catholic* church,
 
 > the communion of saints,
 

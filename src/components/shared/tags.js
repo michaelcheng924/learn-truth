@@ -1,18 +1,42 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
+import { Platform } from "react-native";
+
+const Width700 = styled.View`
+  margin: 0 auto;
+  padding: 0 20px;
+  ${Platform.OS === "web"
+    ? "max-width: 740px; width: 100%;"
+    : "align-self: stretch;"};
+`;
+
 const PageHeading = styled.Text`
-  font-size: 35px;
-  margin: 20px 0 3px;
-  text-align: center;
+  color: #000;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 40px;
+  margin-bottom: 8px;
+  margin-top: 20px;
+  opacity: 0.84;
 `;
 
 const PageSubtitle = styled.Text`
-  color: #95a5a6;
-  font-size: 18px;
-  line-height: 28;
+  color: #000;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  margin-bottom: 24px;
+  ${Platform.OS === "web" ? "opacity: .54;" : "opacity: .75"};
+`;
+
+const PageHeadingDivider = styled.View`
+  border-color: #bdbdbd;
+  border-width: 1px;
   margin-bottom: 20px;
-  text-align: center;
+  ${Platform.OS === "web"
+    ? "max-width: 740px; width: 100%;"
+    : "align-self: stretch;"};
 `;
 
 const Heading = styled.Text`
@@ -67,4 +91,12 @@ class OL extends Component {
   }
 }
 
-export { Heading, OL, PageHeading, PageSubtitle, Text };
+export {
+  Heading,
+  OL,
+  PageHeading,
+  PageHeadingDivider,
+  PageSubtitle,
+  Text,
+  Width700
+};

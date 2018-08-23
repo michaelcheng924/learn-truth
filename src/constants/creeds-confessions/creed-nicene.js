@@ -1,17 +1,27 @@
 const NICENE_CREED = `
-We believe in one God, the Father almighty, maker of all things, visible and invisible;
+We believe in one God, the Father Almighty, Maker of heaven and earth, and of all things visible and invisible;
 
-And in one Lord Jesus Christ, the Son of God, begotten from the Father, only-begotten, that is, from the essence of the Father, God from God, light from light, true God from true God, begotten not made, of one essence with the Father,
+And in one Lord Jesus Christ, the Son of God, the Only-begotten, Begotten of the Father before all ages, Light of Light, Very God of Very God, Begotten, not made; of one essence with the Father,
 
-through Whom all things came into being, things in heaven and things on earth,
+by whom all things were made;
 
-Who because of us men and because of our salvation came down and became incarnate, becoming man,
+Who for us men and for our salvation came down from heaven, and was incarnate of the Holy Spirit and the Virgin Mary, and was made man;
 
-suffered and rose again on the third day, ascended to the heavens,
+And was crucified also for us under Pontius Pilate, and suffered and was buried; And the third day He rose again, according to the Scriptures;
 
-and will come again to judge the living and the dead;
+And ascended into heaven, and sits at the right hand of the Father;
 
-And in the Holy Spirit.
+And He shall come again with glory to judge the living and the dead, Whose kingdom shall have no end.
+
+And we believe in the Holy Spirit, the Lord, and Giver of Life, Who proceeds from the Father, Who with the Father and the Son together is worshipped and glorified, Who spoke by the Prophets;
+
+And we believe in one, holy, catholic, and apostolic Church.
+
+We acknowledge one Baptism for the remission of sins.
+
+We look for the Resurrection of the dead,
+
+And the Life of the age to come. Amen.
 `;
 
 export default NICENE_CREED;

@@ -192,6 +192,9 @@ class CreedsConfessions extends Component {
             backgroundColor = "#0097A7";
           }
 
+          const year =
+            document.year < 1000 ? `AD ${document.year}` : document.year;
+
           return (
             <TouchableOpacity
               key={document.name}
@@ -199,10 +202,10 @@ class CreedsConfessions extends Component {
             >
               <DocumentContainer>
                 <DocumentTitleContainer style={{ backgroundColor }}>
-                  <DocumentTitle>{document.name}</DocumentTitle>
+                  <DocumentTitle>{`${document.name} (${document.yearText ||
+                    year})`}</DocumentTitle>
                 </DocumentTitleContainer>
                 <DocumentDescriptionContainer>
-                  <Text>{document.year}</Text>
                   <Text style={{ marginBottom: 0 }}>
                     {document.description}
                   </Text>
@@ -237,7 +240,7 @@ class CreedsConfessions extends Component {
           <PageHeading style={{ marginTop: 0 }}>
             {get(this.state.currentDocument, "name", "")}
           </PageHeading>
-          {get(this.state.currentDocument, "type", "") === "Creeds"
+          {typeof get(this.state.currentDocument, "content", "") === "string"
             ? renderMarkdown(get(this.state.currentDocument, "content", ""))
             : this.renderConfession()}
         </ContentContainer>

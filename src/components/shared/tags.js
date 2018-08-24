@@ -11,23 +11,6 @@ const Width700 = styled.View`
     : "align-self: stretch;"};
 `;
 
-const PageHeading = styled.Text`
-  color: #fff;
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 40px;
-  margin-bottom: 8px;
-  margin-top: 20px;
-`;
-
-const PageSubtitle = styled.Text`
-  color: #fff;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
-  margin-bottom: 24px;
-`;
-
 const Heading = styled.Text`
   color: #000;
   font-size: 28px;
@@ -80,4 +63,4 @@ class OL extends Component {
   }
 }
 
-export { Heading, OL, PageHeading, PageSubtitle, Text, Width700 };
+export { Heading, OL, Text, Width700 };

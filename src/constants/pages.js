@@ -48,7 +48,7 @@ const HOME_PAGES = [
     title: "The Gospel",
     description: "Learn and share a gospel summary",
     url: "/gospel",
-    backgroundColor: "#1565C0",
+    backgroundColor: "#0097A7",
     image: require("../images/menu-cross-white.png")
   },
   // {

@@ -3,7 +3,7 @@ import styled from "styled-components/primitives";
 
 import { Platform, TouchableOpacity } from "react-native";
 
-import { PageHeading, PageSubtitle } from "./shared";
+import { PageHeader, Width700 } from "./shared";
 import {
   Intro,
   Bible,
@@ -19,26 +19,18 @@ const GospelContainer = styled.View``;
 const GospelSectionsContainer = styled.View`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  margin: 0 auto;
+  width: 300px;
 `;
 
 const GospelSection = styled.View`
   align-items: center;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
-  justify-content: center;
-  min-width: 200px;
-  padding: 6px 0;
-`;
-
-const GospelSectionInner = styled.View`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
+  margin-right: 20px;
+  padding: 5px 10px;
+  width: 130px;
 `;
 
 const GospelSectionNumberContainer = styled.View`
@@ -53,12 +45,8 @@ const GospelSectionNumberContainer = styled.View`
   width: 28px;
 `;
 
-const GospelSectionNumber = styled.Text`
-  font-size: 20px;
-`;
-
 const GospelSectionText = styled.Text`
-  font-size: 20px;
+  font-size: 21px;
 `;
 
 const GospelButtonContainer = styled.View`
@@ -83,10 +71,10 @@ class Gospel extends Component {
     this.setState({ active: active + 1 });
 
     if (Platform.OS === "web") {
-      window.scrollTo(0, 200);
+      window.scrollTo(0, 161);
     } else {
       setTimeout(() => {
-        this.props.scrollView.scrollTo({ y: 400, animated: true });
+        this.props.scrollView.scrollTo({ y: 200, animated: true });
       });
     }
   };
@@ -99,36 +87,26 @@ class Gospel extends Component {
     this.props.history.push("/church-finder");
   };
 
-  renderSectionTab({ index, activeColor, inactiveColor, text }) {
-    let backgroundColor;
-    let color;
+  renderSectionTab({ index, text }) {
+    let backgroundColor = "#fff";
+    let color = "#757575";
 
     if (this.state.active === index) {
-      backgroundColor = activeColor;
+      backgroundColor = "#2196F3";
       color = "#fff";
-    } else {
-      backgroundColor = inactiveColor;
-      color = "#757575";
     }
 
     return (
-      <GospelSection style={{ backgroundColor }}>
-        <TouchableOpacity
-          onPress={() => this.setState({ active: index })}
-          style={{
-            width: "100%"
-          }}
+      <TouchableOpacity onPress={() => this.setState({ active: index })}>
+        <GospelSection
+          style={{ backgroundColor, width: index === 7 ? 200 : 130 }}
         >
-          <GospelSectionInner>
-            <GospelSectionNumberContainer style={{ borderColor: color }}>
-              <GospelSectionNumber style={{ color }}>
-                {index}
-              </GospelSectionNumber>
-            </GospelSectionNumberContainer>
-            <GospelSectionText style={{ color }}>{text}</GospelSectionText>
-          </GospelSectionInner>
-        </TouchableOpacity>
-      </GospelSection>
+          <GospelSectionNumberContainer style={{ borderColor: color }}>
+            <GospelSectionText style={{ color }}>{index}</GospelSectionText>
+          </GospelSectionNumberContainer>
+          <GospelSectionText style={{ color }}>{text}</GospelSectionText>
+        </GospelSection>
+      </TouchableOpacity>
     );
   }
 
@@ -183,54 +161,63 @@ class Gospel extends Component {
   render() {
     return (
       <GospelContainer>
-        <PageHeading>What is the Gospel?</PageHeading>
-        <PageSubtitle>
-          Learn the most important truth in the universe
-        </PageSubtitle>
-        <GospelSectionsContainer>
-          {this.renderSectionTab({
-            index: 1,
-            activeColor: "#757575",
-            inactiveColor: "#E0E0E0",
-            text: "Intro"
-          })}
-          {this.renderSectionTab({
-            index: 2,
-            activeColor: "#795548",
-            inactiveColor: "#BCAAA4",
-            text: "Bible"
-          })}
-          {this.renderSectionTab({
-            index: 3,
-            activeColor: "#673AB7",
-            inactiveColor: "#B39DDB",
-            text: "God"
-          })}
-          {this.renderSectionTab({
-            index: 4,
-            activeColor: "#F44336",
-            inactiveColor: "#EF9A9A",
-            text: "Sin"
-          })}
-          {this.renderSectionTab({
-            index: 5,
-            activeColor: "#1976D2",
-            inactiveColor: "#90CAF9",
-            text: "Jesus"
-          })}
-          {this.renderSectionTab({
-            index: 6,
-            activeColor: "#43A047",
-            inactiveColor: "#A5D6A7",
-            text: "Salvation"
-          })}
-          {this.renderSectionTab({
-            index: 7,
-            activeColor: "#009688",
-            inactiveColor: "#80CBC4",
-            text: "Next Steps"
-          })}
-        </GospelSectionsContainer>
+        <PageHeader
+          backgroundColor="#0097A7"
+          title="What is the Gospel?"
+          subtitle="Learn and share the most important truth in the universe"
+        />
+        <Width700>
+          <GospelSectionsContainer>
+            {this.renderSectionTab({
+              index: 1,
+              activeColor: "#757575",
+              inactiveColor: "#E0E0E0",
+              text: "Intro"
+            })}
+            {this.renderSectionTab({
+              index: 2,
+              activeColor: "#795548",
+              inactiveColor: "#BCAAA4",
+              text: "Bible"
+            })}
+          </GospelSectionsContainer>
+          <GospelSectionsContainer>
+            {this.renderSectionTab({
+              index: 3,
+              activeColor: "#673AB7",
+              inactiveColor: "#B39DDB",
+              text: "God"
+            })}
+            {this.renderSectionTab({
+              index: 4,
+              activeColor: "#F44336",
+              inactiveColor: "#EF9A9A",
+              text: "Sin"
+            })}
+          </GospelSectionsContainer>
+          <GospelSectionsContainer>
+            {this.renderSectionTab({
+              index: 5,
+              activeColor: "#1976D2",
+              inactiveColor: "#90CAF9",
+              text: "Jesus"
+            })}
+            {this.renderSectionTab({
+              index: 6,
+              activeColor: "#43A047",
+              inactiveColor: "#A5D6A7",
+              text: "Salvation"
+            })}
+          </GospelSectionsContainer>
+          <GospelSectionsContainer>
+            {this.renderSectionTab({
+              index: 7,
+              activeColor: "#009688",
+              inactiveColor: "#80CBC4",
+              text: "Next Steps"
+            })}
+          </GospelSectionsContainer>
+        </Width700>
         {this.renderSection()}
       </GospelContainer>
     );

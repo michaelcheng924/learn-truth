@@ -64,29 +64,31 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <ScrollView ref={scrollView => (this.scrollView = scrollView)}>
+        <View>
           <View
             style={{
               backgroundColor: "#666",
               height:
-                Platform.OS === "android" ? 24 : Platform.OS === "ios" ? 24 : 0
+                Platform.OS === "android" || Platform.OS === "ios" ? 24 : 0
             }}
           />
-          <Navbar toggleMenu={this.toggleMenu} />
-          <View style={{ minHeight: Dimensions.get("window").height - 45 }}>
-            {ROUTES.map(({ exact, path, Component }) => {
-              return (
-                <Route
-                  key={path}
-                  exact={exact}
-                  path={path}
-                  render={partial(this.renderRoute, Component)}
-                />
-              );
-            })}
-          </View>
-          {this.renderMenu()}
-        </ScrollView>
+          <ScrollView ref={scrollView => (this.scrollView = scrollView)}>
+            <Navbar toggleMenu={this.toggleMenu} />
+            <View style={{ minHeight: Dimensions.get("window").height - 45 }}>
+              {ROUTES.map(({ exact, path, Component }) => {
+                return (
+                  <Route
+                    key={path}
+                    exact={exact}
+                    path={path}
+                    render={partial(this.renderRoute, Component)}
+                  />
+                );
+              })}
+            </View>
+            {this.renderMenu()}
+          </ScrollView>
+        </View>
       </Router>
     );
   }

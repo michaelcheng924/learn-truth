@@ -1,29 +1,21 @@
 import React, { Component } from "react";
 
 import { View } from "react-native";
-import {
-  Heading,
-  PageHeading,
-  PageSubtitle,
-  Paragraph,
-  Txt,
-  Width700
-} from "./shared";
+import { Heading, PageHeader, Paragraph, Txt, Width700 } from "./shared";
 
 class About extends Component {
   render() {
     return (
       <View>
-        <View style={{ backgroundColor: "#607D8B" }}>
-          <Width700>
-            <PageHeading>About</PageHeading>
-            <PageSubtitle>
-              About learnTRUTH and how to be a part of its work
-            </PageSubtitle>
-          </Width700>
-        </View>
+        <PageHeader
+          backgroundColor="#607D8B"
+          title="About"
+          subtitle="About learnTRUTH and how to be a part of its work"
+        />
         <Width700>
-          <Heading>Who is working on learnTRUTH?</Heading>
+          <Heading style={{ marginTop: 8 }}>
+            Who is working on learnTRUTH?
+          </Heading>
           <Paragraph style={{ marginTop: 8 }}>
             <Txt>
               learnTRUTH is currently being built and maintained by a software

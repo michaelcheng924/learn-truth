@@ -90,7 +90,7 @@ const HOME_PAGES = [
     title: "About",
     description: "Learn more about and support learntruth.io",
     url: "/about",
-    backgroundColor: "#757575",
+    backgroundColor: "#607D8B",
     image: require("../images/icon-info-white.png")
   }
 ];

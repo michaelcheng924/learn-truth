@@ -1,11 +1,4 @@
-export {
-  OL,
-  PageHeading,
-  PageHeadingDivider,
-  PageSubtitle,
-  Text,
-  Width700
-} from "./tags";
+export { OL, PageHeading, PageSubtitle, Text, Width700 } from "./tags";
 export { default as renderMarkdown } from "./Markdown";
 export { default as Heading } from "./Heading";
 export { default as Paragraph } from "./Paragraph";

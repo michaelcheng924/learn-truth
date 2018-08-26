@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { View } from "react-native";
-import { Heading, PageHeader, Paragraph, Txt, Width700 } from "./shared";
+import { Heading, PageHeader, Txt, Width700 } from "./shared";
 
 class About extends Component {
   render() {
@@ -13,24 +13,17 @@ class About extends Component {
           subtitle="About learnTRUTH and how to be a part of its work"
         />
         <Width700>
-          <Heading style={{ marginTop: 8 }}>
-            Who is working on learnTRUTH?
-          </Heading>
-          <Paragraph style={{ marginTop: 8 }}>
-            <Txt>
-              learnTRUTH is currently being built and maintained by a software
-              engineer who desires to use his programming skills for God's
-              glory.
-            </Txt>
-          </Paragraph>
+          <Heading first>Who is working on learnTRUTH?</Heading>
+          <Txt first>
+            learnTRUTH is currently being built and maintained by a software
+            engineer who desires to use his programming skills for God's glory.
+          </Txt>
           <Heading>What is the mission of learnTRUTH?</Heading>
-          <Paragraph style={{ marginTop: 8 }}>
-            <Txt>
-              The mission of learnTRUTH is to utilize technology to teach the
-              gospel of Jesus Christ, specifically from a Reformed theological
-              perspective.
-            </Txt>
-          </Paragraph>
+          <Txt first>
+            The mission of learnTRUTH is to utilize technology to teach the
+            gospel of Jesus Christ, specifically from a Reformed theological
+            perspective.
+          </Txt>
         </Width700>
       </View>
     );

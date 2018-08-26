@@ -19,11 +19,11 @@ const HeadingMedium = styled.Text`
   opacity: 0.84;
 `;
 
-const Paragraph = ({ children, style }) => (
+const Paragraph = ({ children, first, style }) => (
   <Responsive
     largeComponent={HeadingLarge}
     mediumComponent={HeadingMedium}
-    style={style}
+    style={first ? { ...style, marginTop: 8 } : style}
   >
     {children}
   </Responsive>

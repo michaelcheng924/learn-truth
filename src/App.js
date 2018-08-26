@@ -72,7 +72,14 @@ class App extends Component {
                 Platform.OS === "android" || Platform.OS === "ios" ? 24 : 0
             }}
           />
-          <ScrollView ref={scrollView => (this.scrollView = scrollView)}>
+          <ScrollView
+            ref={scrollView => (this.scrollView = scrollView)}
+            style={
+              Platform === "web"
+                ? {}
+                : { height: Dimensions.get("window").height - 24 }
+            }
+          >
             <Navbar toggleMenu={this.toggleMenu} />
             <View style={{ minHeight: Dimensions.get("window").height - 45 }}>
               {ROUTES.map(({ exact, path, Component }) => {

@@ -14,7 +14,9 @@ import {
   NextSteps
 } from "../constants/gospel";
 
-const GospelContainer = styled.View``;
+const GospelContainer = styled.View`
+  margin-bottom: 20px;
+`;
 
 const GospelSectionsContainer = styled.View`
   display: flex;
@@ -28,9 +30,8 @@ const GospelSection = styled.View`
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-  margin-right: 20px;
+  margin-right: 10px;
   padding: 5px 10px;
-  width: 130px;
 `;
 
 const GospelSectionNumberContainer = styled.View`
@@ -52,6 +53,7 @@ const GospelSectionText = styled.Text`
 const GospelButtonContainer = styled.View`
   border-width: 1px;
   margin-left: auto;
+  margin-top: 25px;
   padding: 10px 20px;
 `;
 
@@ -99,7 +101,7 @@ class Gospel extends Component {
     return (
       <TouchableOpacity onPress={() => this.setState({ active: index })}>
         <GospelSection
-          style={{ backgroundColor, width: index === 7 ? 200 : 130 }}
+          style={{ backgroundColor, width: index === 7 ? 200 : 140 }}
         >
           <GospelSectionNumberContainer style={{ borderColor: color }}>
             <GospelSectionText style={{ color }}>{index}</GospelSectionText>
@@ -166,7 +168,7 @@ class Gospel extends Component {
           title="What is the Gospel?"
           subtitle="Learn and share the most important truth in the universe"
         />
-        <Width700>
+        <Width700 style={{ marginBottom: 20 }}>
           <GospelSectionsContainer>
             {this.renderSectionTab({
               index: 1,

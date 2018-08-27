@@ -37,6 +37,16 @@ class App extends Component {
     this.setState({ showMenu: !this.state.showMenu });
   };
 
+  scrollUp = (webY = 0, mobileY = 0) => {
+    setTimeout(() => {
+      if (Platform.OS === "web") {
+        window.scrollTo(0, webY);
+      } else {
+        this.scrollView.scrollTo({ y: mobileY, animated: true });
+      }
+    });
+  };
+
   renderMenu() {
     const { showMenu } = this.state;
 
@@ -58,7 +68,7 @@ class App extends Component {
   }
 
   renderRoute = (Component, { history }) => {
-    return <Component scrollView={this.scrollView} history={history} />;
+    return <Component scrollUp={this.scrollUp} history={history} />;
   };
 
   render() {
@@ -73,9 +83,10 @@ class App extends Component {
             }}
           />
           <ScrollView
+            className="scroll-container"
             ref={scrollView => (this.scrollView = scrollView)}
             style={
-              Platform === "web"
+              Platform.OS === "web"
                 ? {}
                 : { height: Dimensions.get("window").height - 24 }
             }

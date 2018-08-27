@@ -2,30 +2,18 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 import { get, partial } from "lodash";
 
-import { Platform, Text as RNText, TouchableOpacity, View } from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import {
-  PageHeading,
-  PageSubtitle,
+  Heading,
+  PageHeader,
   Picker,
   renderMarkdown,
   ScreenSwitcher,
-  Text
+  Txt,
+  Width700
 } from "./shared";
 
 import { ALL_DOCUMENTS } from "../constants/creeds-confessions";
-
-const CreedsConfessionsContainer = styled.View`
-  margin: 0 auto;
-  ${Platform.OS === "web"
-    ? "max-width: 720px; width: 100%;"
-    : "align-self: stretch;"};
-`;
-
-const ContentContainer = styled.View`
-  align-items: center;
-  display: flex;
-  padding: 0 10px 20px;
-`;
 
 const BackText = styled.Text`
   color: #689f38;
@@ -47,6 +35,7 @@ const DocumentContainer = styled.View`
   border-color: #bdbdbd;
   border-width: 1px;
   margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 const DocumentTitleContainer = styled.View`
@@ -122,8 +111,6 @@ class CreedsConfessions extends Component {
       isLeft: true,
       selectedChapterIndex: null
     });
-
-    this.scrollToTop();
   };
 
   onBack = () => {
@@ -154,8 +141,8 @@ class CreedsConfessions extends Component {
         options={[
           {
             isActive: filter === "Creeds",
-            itemActiveBackgroundColor: "#039BE5",
-            itemInactiveBackgroundColor: "#B3E5FC",
+            itemActiveBackgroundColor: "#673AB7",
+            itemInactiveBackgroundColor: "#D1C4E9",
             label: "Creeds",
             position: "left",
             showBorderRight: filter === "All"
@@ -187,9 +174,9 @@ class CreedsConfessions extends Component {
           let backgroundColor = "";
 
           if (document.type === "Creeds") {
-            backgroundColor = "#039BE5";
+            backgroundColor = "#673AB7";
           } else if (document.type === "Confessions") {
-            backgroundColor = "#0097A7";
+            backgroundColor = "#26A69A";
           }
 
           const year =
@@ -206,9 +193,7 @@ class CreedsConfessions extends Component {
                     year})`}</DocumentTitle>
                 </DocumentTitleContainer>
                 <DocumentDescriptionContainer>
-                  <Text style={{ marginBottom: 0 }}>
-                    {document.description}
-                  </Text>
+                  <Txt noMargin>{document.description}</Txt>
                 </DocumentDescriptionContainer>
               </DocumentContainer>
             </TouchableOpacity>
@@ -220,31 +205,28 @@ class CreedsConfessions extends Component {
 
   renderLeft() {
     return (
-      <CreedsConfessionsContainer>
-        <ContentContainer>
-          <PageHeading>Historical Documents</PageHeading>
-          <PageSubtitle>
-            Learn the historic creeds, confessions, and councils of the church
-          </PageSubtitle>
+      <View>
+        <PageHeader
+          backgroundColor="#039BE5"
+          title="Creeds and Confessions"
+          subtitle="Learn the historic creeds and confessions of the church"
+        />
+        <Width700>
           {this.renderFilters()}
           {this.renderDocuments()}
-        </ContentContainer>
-      </CreedsConfessionsContainer>
+        </Width700>
+      </View>
     );
   }
 
   renderRight() {
     return (
-      <CreedsConfessionsContainer>
-        <ContentContainer>
-          <PageHeading style={{ marginTop: 0 }}>
-            {get(this.state.currentDocument, "name", "")}
-          </PageHeading>
-          {typeof get(this.state.currentDocument, "content", "") === "string"
-            ? renderMarkdown(get(this.state.currentDocument, "content", ""))
-            : this.renderConfession()}
-        </ContentContainer>
-      </CreedsConfessionsContainer>
+      <Width700 style={{ marginBottom: 20 }}>
+        <Heading first>{get(this.state.currentDocument, "name", "")}</Heading>
+        {get(this.state.currentDocument, "contentType", "") === "render"
+          ? this.state.currentDocument.content
+          : this.renderConfession()}
+      </Width700>
     );
   }
 
@@ -276,11 +258,11 @@ class CreedsConfessions extends Component {
                     <ConfessionChapterParagraph>
                       Paragraph {paragraphIndex + 1}
                     </ConfessionChapterParagraph>
-                    <RNText style={{ marginBottom: 20 }}>
+                    <Text style={{ marginBottom: 20 }}>
                       {paragraph.map((section, index) => {
                         return (
-                          <RNText key={index}>
-                            <Text>{`${section.text} `}</Text>
+                          <Text key={index}>
+                            <Txt>{`${section.text} `}</Txt>
                             <TouchableOpacity
                               onPress={() =>
                                 this.setState({
@@ -291,19 +273,19 @@ class CreedsConfessions extends Component {
                                 })
                               }
                             >
-                              <Text
+                              <Txt
                                 style={{
                                   color: "#689F38",
                                   fontStyle: "italic",
                                   opacity: 1,
                                   marginBottom: 0
                                 }}
-                              >{`${section.superscript} `}</Text>
+                              >{`${section.superscript} `}</Txt>
                             </TouchableOpacity>
-                          </RNText>
+                          </Text>
                         );
                       })}
-                    </RNText>
+                    </Text>
                   </View>
                 );
               }
@@ -324,8 +306,8 @@ class CreedsConfessions extends Component {
                   {paragraph1.map((section, index) => {
                     return (
                       <View key={index}>
-                        <RNText style={{ marginBottom: 20 }}>
-                          <Text>{`${section.text} `}</Text>
+                        <Text style={{ marginBottom: 20 }}>
+                          <Txt>{`${section.text} `}</Txt>
                           <TouchableOpacity
                             onPress={() =>
                               this.setState({
@@ -336,27 +318,27 @@ class CreedsConfessions extends Component {
                               })
                             }
                           >
-                            <Text
+                            <Txt
                               style={{
                                 color: "#689F38",
                                 fontStyle: "italic",
                                 opacity: 1,
                                 marginBottom: 0
                               }}
-                            >{`${section.superscript} `}</Text>
+                            >{`${section.superscript} `}</Txt>
                           </TouchableOpacity>
-                        </RNText>
+                        </Text>
                         {index + 1 === scriptures.section.superscript ? (
-                          <Text>{scriptures.section.scriptures}</Text>
+                          <Txt>{scriptures.section.scriptures}</Txt>
                         ) : null}
                       </View>
                     );
                   })}
-                  <RNText style={{ marginBottom: 20 }}>
+                  <Text style={{ marginBottom: 20 }}>
                     {paragraph2.map((section, index) => {
                       return (
-                        <RNText key={index}>
-                          <Text>{`${section.text} `}</Text>
+                        <Text key={index}>
+                          <Txt>{`${section.text} `}</Txt>
                           <TouchableOpacity
                             onPress={() =>
                               this.setState({
@@ -367,19 +349,19 @@ class CreedsConfessions extends Component {
                               })
                             }
                           >
-                            <Text
+                            <Txt
                               style={{
                                 color: "#689F38",
                                 fontStyle: "italic",
                                 opacity: 1,
                                 marginBottom: 0
                               }}
-                            >{`${section.superscript} `}</Text>
+                            >{`${section.superscript} `}</Txt>
                           </TouchableOpacity>
-                        </RNText>
+                        </Text>
                       );
                     })}
-                  </RNText>
+                  </Text>
                 </View>
               );
             })}
@@ -413,6 +395,7 @@ class CreedsConfessions extends Component {
         onBack={this.onBack}
         renderBack={this.renderBack}
         rightContent={this.renderRight()}
+        scrollUp={this.props.scrollUp}
       />
     );
   }

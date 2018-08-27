@@ -72,13 +72,7 @@ class Gospel extends Component {
 
     this.setState({ active: active + 1 });
 
-    if (Platform.OS === "web") {
-      window.scrollTo(0, 161);
-    } else {
-      setTimeout(() => {
-        this.props.scrollView.scrollTo({ y: 200, animated: true });
-      });
-    }
+    this.props.scrollUp(161, 190);
   };
 
   navigateToResources = () => {

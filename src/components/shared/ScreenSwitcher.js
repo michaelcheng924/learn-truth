@@ -4,7 +4,7 @@ import { Animated, Dimensions, TouchableOpacity, View } from "react-native";
 
 class ScreenSwitcher extends Component {
   state = {
-    animLeftScreenRight: new Animated.Value(0),
+    animLeftScreenWidth: new Animated.Value(Dimensions.get("window").width),
     animRightScreenLeft: new Animated.Value(Dimensions.get("window").width),
     leftComplete: true,
     rightComplete: false
@@ -21,12 +21,12 @@ class ScreenSwitcher extends Component {
   }
 
   onSwitchToRight = () => {
-    const { animLeftScreenRight, animRightScreenLeft } = this.state;
+    const { animLeftScreenWidth, animRightScreenLeft } = this.state;
 
     const width = Dimensions.get("window").width;
 
-    Animated.timing(animLeftScreenRight, {
-      toValue: width,
+    Animated.timing(animLeftScreenWidth, {
+      toValue: 0,
       duration: 250
     }).start();
 
@@ -38,15 +38,17 @@ class ScreenSwitcher extends Component {
     setTimeout(() => {
       this.setState({ leftComplete: false, rightComplete: true });
     }, 250);
+
+    this.props.scrollUp();
   };
 
   onReset = () => {
-    const { animLeftScreenRight, animRightScreenLeft } = this.state;
+    const { animLeftScreenWidth, animRightScreenLeft } = this.state;
 
     const width = Dimensions.get("window").width;
 
-    Animated.timing(animLeftScreenRight, {
-      toValue: 0,
+    Animated.timing(animLeftScreenWidth, {
+      toValue: width,
       duration: 250
     }).start();
 
@@ -68,7 +70,7 @@ class ScreenSwitcher extends Component {
 
   render() {
     const {
-      animLeftScreenRight,
+      animLeftScreenWidth,
       animRightScreenLeft,
       leftComplete,
       rightComplete
@@ -82,9 +84,11 @@ class ScreenSwitcher extends Component {
       <View>
         <Animated.View
           style={{
-            width,
-            position: leftComplete ? "relative" : "absolute",
-            right: animLeftScreenRight
+            width: animLeftScreenWidth,
+            // width,
+            overflow: "hidden",
+            position: leftComplete ? "relative" : "absolute"
+            // right: animLeftScreenWidth
           }}
         >
           {leftContent}

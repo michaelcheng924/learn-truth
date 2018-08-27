@@ -14,6 +14,7 @@ const ALL_DOCUMENTS = [
     yearText: "earliest mention/before AD 390",
     name: "Apostle's Creed",
     content: APOSTLES_CREED,
+    contentType: "render",
     description:
       "An early statement of Christian belief. Trinitarian in structure."
   },
@@ -22,6 +23,7 @@ const ALL_DOCUMENTS = [
     year: 381,
     name: "Nicene Creed",
     content: NICENE_CREED,
+    contentType: "render",
     description:
       "Also known as the Nicene-Constantinopolitan Creed. A statement of the orthodox faith of the early Christian church in opposition to certain heresies, especially Arianism."
   },
@@ -30,6 +32,7 @@ const ALL_DOCUMENTS = [
     year: 451,
     name: "Chalcedonian Creed",
     content: CHALCEDEONIAN_CREED,
+    contentType: "render",
     description:
       "A response to certain heretical views concerning the nature of Christ.  It established the orthodox view that Christ has two natures (human and divine) that are unified in one person."
   },

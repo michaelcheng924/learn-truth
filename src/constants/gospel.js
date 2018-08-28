@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/primitives";
 
-import { Platform, TouchableOpacity, View } from "react-native";
-import { Heading, Img, Quote, Text, Txt, Width700 } from "../components/shared";
+import { TouchableOpacity } from "react-native";
+import { B, Heading, Img, Quote, Txt, Width700 } from "../components/shared";
 
 const ResourcesContainer = styled.View`
   align-items: center;
@@ -28,16 +28,8 @@ const ResourceText = styled.Text`
   line-height: 28;
 `;
 
-const B = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 28;
-`;
-
-const ImageContainer = Platform.OS === "web" ? Text : View;
-
 export const Intro = ({ renderNextButton }) => (
-  <Width700>
+  <Width700 spaceBottom>
     <Heading first>1. Introduction</Heading>
     <Txt first>
       Does your life have purpose and meaning? Or are you simply a product of
@@ -69,7 +61,7 @@ export const Intro = ({ renderNextButton }) => (
 );
 
 export const Bible = ({ renderNextButton }) => (
-  <Width700>
+  <Width700 spaceBottom>
     <Heading first>2. Bible</Heading>
     <Txt first>
       The Bible is how God has chosen to reveal Himself and His plans to humans.
@@ -101,7 +93,7 @@ export const Bible = ({ renderNextButton }) => (
 );
 
 export const God = ({ renderNextButton }) => (
-  <Width700>
+  <Width700 spaceBottom>
     <Heading first>3. God</Heading>
     <Txt first>
       What has God revealed about Himself through the Bible? First, God is the{" "}
@@ -139,7 +131,7 @@ export const God = ({ renderNextButton }) => (
 );
 
 export const Sin = ({ renderNextButton }) => (
-  <Width700>
+  <Width700 spaceBottom>
     <Heading first>4. Sin</Heading>
     <Txt first>Every human being is guilty of sin before God in two ways:</Txt>
     <Txt>
@@ -196,7 +188,7 @@ export const Sin = ({ renderNextButton }) => (
 );
 
 export const Jesus = ({ renderNextButton }) => (
-  <Width700>
+  <Width700 spaceBottom>
     <Heading first>5. Jesus</Heading>
     <Txt first>
       Jesus is both <B>fully God</B> and <B>fully human</B>. In the verses
@@ -251,7 +243,7 @@ export const Jesus = ({ renderNextButton }) => (
 );
 
 export const Salvation = ({ renderNextButton }) => (
-  <Width700>
+  <Width700 spaceBottom>
     <Heading first>6. Salvation</Heading>
     <Txt first>
       Jesus taught that to be saved, we must <B>repent</B> and <B>believe</B>{" "}
@@ -305,7 +297,7 @@ export const Salvation = ({ renderNextButton }) => (
 );
 
 export const NextSteps = ({ navigateToResources, navigateToChurchFinder }) => (
-  <Width700>
+  <Width700 spaceBottom>
     <Heading first>7. Next Steps</Heading>
     <Txt first>
       The most important thing to do as one who believes in Jesus is to{" "}

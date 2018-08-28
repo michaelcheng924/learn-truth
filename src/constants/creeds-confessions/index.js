@@ -42,6 +42,7 @@ const ALL_DOCUMENTS = [
     yearText: "around AD 600",
     name: "Athanasian Creed",
     content: ATHANASIAN_CREED,
+    contentType: "render",
     description:
       "Named after Athanasius (A.D. 293-373), the champion of orthodoxy against Arian attacks on the doctrine of the trinity. Although Athanasius did not write this creed and it is improperly named after him, the name persists because until the seventeenth century it was commonly ascribed to him."
   },
@@ -50,6 +51,7 @@ const ALL_DOCUMENTS = [
     year: 1571,
     name: "Thirty-nine Articles",
     content: THIRTY_NINE_ARTICLES,
+    contentType: "render",
     description:
       "Used to define the doctrine of the Church of England as it related to Calvinist doctrine and Roman Catholic practice. It was in this document that Calvinist thought reached the zenith of its influence in the English Church."
   },

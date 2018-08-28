@@ -23,7 +23,7 @@ const PageSubtitle = styled.Text`
 
 const PageHeader = ({ backgroundColor, title, subtitle }) => {
   return (
-    <View style={{ backgroundColor, marginBottom: 20 }}>
+    <View style={{ backgroundColor, marginBottom: 30 }}>
       <Width700>
         <PageHeading>{title}</PageHeading>
         <PageSubtitle>{subtitle}</PageSubtitle>

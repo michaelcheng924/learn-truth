@@ -7,7 +7,6 @@ import {
   Heading,
   PageHeader,
   Picker,
-  renderMarkdown,
   ScreenSwitcher,
   Txt,
   Width700
@@ -211,7 +210,7 @@ class CreedsConfessions extends Component {
           title="Creeds and Confessions"
           subtitle="Learn the historic creeds and confessions of the church"
         />
-        <Width700>
+        <Width700 center>
           {this.renderFilters()}
           {this.renderDocuments()}
         </Width700>
@@ -221,7 +220,7 @@ class CreedsConfessions extends Component {
 
   renderRight() {
     return (
-      <Width700 style={{ marginBottom: 20 }}>
+      <Width700 spaceBottom>
         <Heading first>{get(this.state.currentDocument, "name", "")}</Heading>
         {get(this.state.currentDocument, "contentType", "") === "render"
           ? this.state.currentDocument.content

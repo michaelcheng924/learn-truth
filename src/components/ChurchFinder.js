@@ -1,20 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Linking, Platform, TouchableOpacity } from "react-native";
-import { PageHeading } from "./shared";
-
-const ResourcesContainer = styled.View`
-  padding: 0 20px 20px;
-`;
-
-const ContentContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 20px auto;
-  max-width: 700px;
-`;
+import { Linking, Platform, TouchableOpacity, View } from "react-native";
+import { PageHeader, Width700 } from "./shared";
 
 const ResourceContainer = styled.View`
   align-items: center;
@@ -56,9 +44,13 @@ class Resources extends Component {
 
   render() {
     return (
-      <ResourcesContainer>
-        <PageHeading style={{ marginBottom: 20 }}>Church Finder</PageHeading>
-        <ContentContainer>
+      <View>
+        <PageHeader
+          backgroundColor="#795548"
+          title="Church Finder"
+          subtitle="Find a solid church to attend"
+        />
+        <Width700>
           <TouchableOpacity
             onPress={() => Linking.openURL("http://http://www.farese.com/map")}
           >
@@ -120,8 +112,8 @@ class Resources extends Component {
               </ResourceInfoContainer>
             </ResourceContainer>
           </TouchableOpacity>
-        </ContentContainer>
-      </ResourcesContainer>
+        </Width700>
+      </View>
     );
   }
 }

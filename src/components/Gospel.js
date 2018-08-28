@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Platform, TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
-import { PageHeader, Width700 } from "./shared";
+import { PageHeader, Txt, Width700 } from "./shared";
 import {
   Intro,
   Bible,
@@ -13,10 +13,6 @@ import {
   Salvation,
   NextSteps
 } from "../constants/gospel";
-
-const GospelContainer = styled.View`
-  margin-bottom: 20px;
-`;
 
 const GospelSectionsContainer = styled.View`
   display: flex;
@@ -46,19 +42,11 @@ const GospelSectionNumberContainer = styled.View`
   width: 28px;
 `;
 
-const GospelSectionText = styled.Text`
-  font-size: 21px;
-`;
-
 const GospelButtonContainer = styled.View`
   border-width: 1px;
   margin-left: auto;
   margin-top: 25px;
   padding: 10px 20px;
-`;
-
-const GospelButton = styled.Text`
-  font-size: 20px;
 `;
 
 class Gospel extends Component {
@@ -98,9 +86,13 @@ class Gospel extends Component {
           style={{ backgroundColor, width: index === 7 ? 200 : 140 }}
         >
           <GospelSectionNumberContainer style={{ borderColor: color }}>
-            <GospelSectionText style={{ color }}>{index}</GospelSectionText>
+            <Txt noMargin style={{ color }}>
+              {index}
+            </Txt>
           </GospelSectionNumberContainer>
-          <GospelSectionText style={{ color }}>{text}</GospelSectionText>
+          <Txt noMargin style={{ color }}>
+            {text}
+          </Txt>
         </GospelSection>
       </TouchableOpacity>
     );
@@ -148,7 +140,9 @@ class Gospel extends Component {
     return (
       <TouchableOpacity onPress={this.changeSection}>
         <GospelButtonContainer style={{ borderColor: color }}>
-          <GospelButton style={{ color }}>{`${text} `} ➡</GospelButton>
+          <Txt noMargin style={{ color }}>
+            {`${text} `} ➡
+          </Txt>
         </GospelButtonContainer>
       </TouchableOpacity>
     );
@@ -156,13 +150,13 @@ class Gospel extends Component {
 
   render() {
     return (
-      <GospelContainer>
+      <View>
         <PageHeader
           backgroundColor="#0097A7"
           title="What is the Gospel?"
           subtitle="Learn and share the most important truth in the universe"
         />
-        <Width700 style={{ marginBottom: 20 }}>
+        <Width700 spaceBottom>
           <GospelSectionsContainer>
             {this.renderSectionTab({
               index: 1,
@@ -215,7 +209,7 @@ class Gospel extends Component {
           </GospelSectionsContainer>
         </Width700>
         {this.renderSection()}
-      </GospelContainer>
+      </View>
     );
   }
 }

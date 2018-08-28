@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Linking, Platform, TouchableOpacity } from "react-native";
-import { PageHeading } from "./shared";
-
-const ResourcesContainer = styled.View`
-  padding: 0 20px 20px;
-`;
+import { Linking, Platform, TouchableOpacity, View } from "react-native";
+import { PageHeader, Width700 } from "./shared";
 
 const ContentContainer = styled.View`
   display: flex;
@@ -62,9 +58,13 @@ class Resources extends Component {
 
   render() {
     return (
-      <ResourcesContainer>
-        <PageHeading style={{ marginBottom: 20 }}>Resources</PageHeading>
-        <ContentContainer>
+      <View>
+        <PageHeader
+          backgroundColor="#689F38"
+          title="Resources"
+          subtitle="Resources to help you grow in your faith"
+        />
+        <Width700 spaceBottom>
           <TouchableOpacity
             onPress={() => Linking.openURL("http://g3conference.com/archives")}
           >
@@ -138,8 +138,8 @@ class Resources extends Component {
               </ResourceInfoContainer>
             </ResourceContainer>
           </TouchableOpacity>
-        </ContentContainer>
-      </ResourcesContainer>
+        </Width700>
+      </View>
     );
   }
 }

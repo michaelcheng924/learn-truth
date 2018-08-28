@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { PageHeading, PageSubtitle, Picker } from "../shared";
+import { PageHeader, Picker, Width700 } from "../shared";
 
 import {
   BOYS_GIRLS,
@@ -23,12 +23,6 @@ import {
 import FullAnswer from "./FullAnswer";
 import FillInTheBlank from "./FillInTheBlank";
 import MultipleChoice from "./MultipleChoice";
-
-const CatechismPracticeContainer = styled.View`
-  align-items: center;
-  display: flex;
-  padding: 0 20px 20px;
-`;
 
 const CatechismSwitcher = styled.View`
   display: flex;
@@ -689,28 +683,31 @@ class CatechismPractice extends Component {
 
     return (
       <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={200}>
-        <CatechismPracticeContainer>
-          <PageHeading>Catechism Practice</PageHeading>
-          <PageSubtitle>
-            Questions and answers to learn the Bible's teachings. Great for
-            families and children.
-          </PageSubtitle>
-          {this.renderLanguagePicker()}
-          {this.renderCatechismPicker()}
-          {this.renderModePicker()}
-          <CatechismSwitcher>{this.renderShowAnswer()}</CatechismSwitcher>
-          <View style={styles.catechismCardContainer1}>
-            <View style={styles.catechismCardContainer2}>
-              <CatechismCard>
-                {this.renderNavigation()}
-                <CatechismQuestion style={cardQuestionStyles}>
-                  {catechism[number - 1].question}
-                </CatechismQuestion>
-                {this.renderAnswer()}
-              </CatechismCard>
+        <View>
+          <PageHeader
+            backgroundColor="#FF5722"
+            title="Catechism Practice"
+            subtitle="Questions and answers to learn the Bible's teachings. Great for
+          families and children."
+          />
+          <Width700 center>
+            {this.renderLanguagePicker()}
+            {this.renderCatechismPicker()}
+            {this.renderModePicker()}
+            <CatechismSwitcher>{this.renderShowAnswer()}</CatechismSwitcher>
+            <View style={styles.catechismCardContainer1}>
+              <View style={styles.catechismCardContainer2}>
+                <CatechismCard>
+                  {this.renderNavigation()}
+                  <CatechismQuestion style={cardQuestionStyles}>
+                    {catechism[number - 1].question}
+                  </CatechismQuestion>
+                  {this.renderAnswer()}
+                </CatechismCard>
+              </View>
             </View>
-          </View>
-        </CatechismPracticeContainer>
+          </Width700>
+        </View>
       </KeyboardAvoidingView>
     );
   }

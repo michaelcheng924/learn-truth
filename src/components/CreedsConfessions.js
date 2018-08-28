@@ -5,6 +5,7 @@ import { get, partial } from "lodash";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import {
   Heading,
+  I,
   PageHeader,
   Picker,
   ScreenSwitcher,
@@ -13,18 +14,6 @@ import {
 } from "./shared";
 
 import { ALL_DOCUMENTS } from "../constants/creeds-confessions";
-
-const BackText = styled.Text`
-  color: #689f38;
-  font-size: 18px;
-  margin: 20px;
-`;
-
-const TableOfContentsText = styled.Text`
-  color: #689f38;
-  font-size: 18px;
-  margin-top: 20px;
-`;
 
 const DocumentsContainer = styled.View`
   margin: 0 auto;
@@ -56,12 +45,6 @@ const ConfessionChapterList = styled.View`
   margin-top: 20px;
 `;
 
-const ConfessionChapterTitleText = styled.Text`
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 10px;
-`;
-
 const ConfessionChapterParagraph = styled.Text`
   color: #000;
   font-size: 14px;
@@ -80,16 +63,6 @@ class CreedsConfessions extends Component {
     list: ALL_DOCUMENTS,
     scriptures: null,
     selectedChapterIndex: null
-  };
-
-  scrollToTop = () => {
-    if (Platform.OS === "web") {
-      window.scrollTo(0, 0);
-    } else {
-      setTimeout(() => {
-        this.props.scrollView.scrollTo({ y: 0, animated: true });
-      });
-    }
   };
 
   onFilterChange = filter => {
@@ -125,11 +98,15 @@ class CreedsConfessions extends Component {
       selectedChapterIndex: index
     });
 
-    this.scrollToTop();
+    this.props.scrollUp();
   };
 
   renderBack = () => {
-    return <BackText>← Back to all creeds and confessions</BackText>;
+    return (
+      <Txt style={{ color: "#689f38", margin: 20, marginTop: 20 }}>
+        ← Back to all creeds and confessions
+      </Txt>
+    );
   };
 
   renderFilters() {
@@ -244,24 +221,24 @@ class CreedsConfessions extends Component {
           <TouchableOpacity
             onPress={() => this.setState({ selectedChapterIndex: null })}
           >
-            <TableOfContentsText>← Table of contents</TableOfContentsText>
+            <Txt style={{ color: "#689f38" }}>← Table of contents</Txt>
           </TouchableOpacity>
           <ConfessionChapterList>
-            <ConfessionChapterTitleText>
-              {`${chapter.chapter}. ${chapter.title}`}
-            </ConfessionChapterTitleText>
+            <Txt first style={{ fontWeight: "bold" }}>{`${chapter.chapter}. ${
+              chapter.title
+            }`}</Txt>
             {chapter.content.map((paragraph, paragraphIndex) => {
               if (!scriptures || scriptures.paragraphIndex !== paragraphIndex) {
                 return (
                   <View key={paragraphIndex}>
-                    <ConfessionChapterParagraph>
-                      Paragraph {paragraphIndex + 1}
-                    </ConfessionChapterParagraph>
-                    <Text style={{ marginBottom: 20 }}>
+                    <Txt first={paragraphIndex === 0}>
+                      <I>Paragraph {paragraphIndex + 1}</I>
+                    </Txt>
+                    <Txt first>
                       {paragraph.map((section, index) => {
                         return (
                           <Text key={index}>
-                            <Txt>{`${section.text} `}</Txt>
+                            <Txt first>{section.text}</Txt>
                             <TouchableOpacity
                               onPress={() =>
                                 this.setState({
@@ -272,19 +249,14 @@ class CreedsConfessions extends Component {
                                 })
                               }
                             >
-                              <Txt
-                                style={{
-                                  color: "#689F38",
-                                  fontStyle: "italic",
-                                  opacity: 1,
-                                  marginBottom: 0
-                                }}
-                              >{`${section.superscript} `}</Txt>
+                              <Txt noMargin style={{ color: "#689F38" }}>
+                                <I>{` (${section.superscript}) `}</I>
+                              </Txt>
                             </TouchableOpacity>
                           </Text>
                         );
                       })}
-                    </Text>
+                    </Txt>
                   </View>
                 );
               }
@@ -299,14 +271,14 @@ class CreedsConfessions extends Component {
 
               return (
                 <View key={paragraphIndex}>
-                  <ConfessionChapterParagraph>
+                  <Txt first={paragraphIndex === 0}>
                     Paragraph {paragraphIndex + 1}
-                  </ConfessionChapterParagraph>
-                  {paragraph1.map((section, index) => {
-                    return (
-                      <View key={index}>
-                        <Text style={{ marginBottom: 20 }}>
-                          <Txt>{`${section.text} `}</Txt>
+                  </Txt>
+                  <Txt first style={{ opacity: 1 }}>
+                    {paragraph1.map((section, index) => {
+                      return (
+                        <Text key={index}>
+                          <Txt>{`${section.text}`}</Txt>
                           <TouchableOpacity
                             onPress={() =>
                               this.setState({
@@ -318,22 +290,19 @@ class CreedsConfessions extends Component {
                             }
                           >
                             <Txt
+                              noMargin
                               style={{
                                 color: "#689F38",
-                                fontStyle: "italic",
-                                opacity: 1,
-                                marginBottom: 0
+                                fontStyle: "italic"
                               }}
-                            >{`${section.superscript} `}</Txt>
+                            >{` (${section.superscript}) `}</Txt>
                           </TouchableOpacity>
                         </Text>
-                        {index + 1 === scriptures.section.superscript ? (
-                          <Txt>{scriptures.section.scriptures}</Txt>
-                        ) : null}
-                      </View>
-                    );
-                  })}
-                  <Text style={{ marginBottom: 20 }}>
+                      );
+                    })}
+                  </Txt>
+                  <Txt>{scriptures.section.scriptures}</Txt>
+                  <Txt style={{ opacity: 1 }}>
                     {paragraph2.map((section, index) => {
                       return (
                         <Text key={index}>
@@ -349,18 +318,17 @@ class CreedsConfessions extends Component {
                             }
                           >
                             <Txt
+                              noMargin
                               style={{
                                 color: "#689F38",
-                                fontStyle: "italic",
-                                opacity: 1,
-                                marginBottom: 0
+                                fontStyle: "italic"
                               }}
                             >{`${section.superscript} `}</Txt>
                           </TouchableOpacity>
                         </Text>
                       );
                     })}
-                  </Text>
+                  </Txt>
                 </View>
               );
             })}
@@ -375,9 +343,9 @@ class CreedsConfessions extends Component {
           return (
             <View key={item.title}>
               <TouchableOpacity onPress={partial(this.onChapterSelect, index)}>
-                <ConfessionChapterTitleText style={{ color: "#689F38" }}>
+                <Txt first style={{ color: "#689F38" }}>
                   {`${item.chapter}. ${item.title}`}
-                </ConfessionChapterTitleText>
+                </Txt>
               </TouchableOpacity>
             </View>
           );

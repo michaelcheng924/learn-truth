@@ -4,16 +4,6 @@ import styled from "styled-components/primitives";
 import { Linking, Platform, TouchableOpacity, View } from "react-native";
 import { PageHeader, Width700 } from "./shared";
 
-const ContentContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 20px auto;
-  ${Platform.OS === "web"
-    ? "max-width: 700px; width: 100%;"
-    : "align-self: stretch;"};
-`;
-
 const ResourceContainer = styled.View`
   align-items: center;
   display: flex;

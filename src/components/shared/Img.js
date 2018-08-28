@@ -28,7 +28,7 @@ class Responsive extends Component {
 
   render() {
     const { size } = this.state;
-    const { children, float, height, source, style, width } = this.props;
+    const { children, height, source, style, width } = this.props;
 
     let imageWidth;
     let imageHeight;

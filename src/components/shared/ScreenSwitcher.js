@@ -23,8 +23,6 @@ class ScreenSwitcher extends Component {
   onSwitchToRight = () => {
     const { animLeftScreenWidth, animRightScreenLeft } = this.state;
 
-    const width = Dimensions.get("window").width;
-
     Animated.timing(animLeftScreenWidth, {
       toValue: 0,
       duration: 250
@@ -36,10 +34,10 @@ class ScreenSwitcher extends Component {
     }).start();
 
     setTimeout(() => {
-      this.setState({ leftComplete: false, rightComplete: true });
+      this.setState({ leftComplete: false, rightComplete: true }, () => {
+        this.props.scrollUp();
+      });
     }, 250);
-
-    this.props.scrollUp();
   };
 
   onReset = () => {

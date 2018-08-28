@@ -9,4 +9,8 @@ const BI = styled.Text`
   font-weight: bold;
 `;
 
-export { B, BI };
+const I = styled.Text`
+  font-style: italic;
+`;
+
+export { B, BI, I };

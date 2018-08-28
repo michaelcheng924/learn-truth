@@ -9,7 +9,6 @@ const QuoteLarge = styled.Text`
   font-style: italic;
   line-height: 33.18px;
   margin-top: 29px;
-  opacity: 0.84;
 `;
 
 const QuoteMedium = styled.Text`
@@ -18,7 +17,6 @@ const QuoteMedium = styled.Text`
   font-style: italic;
   line-height: 28.44px;
   margin-top: 21px;
-  opacity: 0.84;
 `;
 
 const Quote = ({ children, first, noMargin, style }) => (

@@ -1,5 +1,8 @@
 import React from "react";
 
+import { View } from "react-native";
+import { B, Txt, Quote } from "../../components/shared";
+
 const LONDON_BAPTIST = [
   {
     chapter: 1,
@@ -11,8 +14,51 @@ const LONDON_BAPTIST = [
           superscript: 1,
           text:
             "The Holy Scripture is the only sufficient, certain, and infallible rule of all saving knowledge, faith, and obedience.",
-          scriptures:
-            "2 Timothy 3:15-17, Isaiah 8:20, Luke 16:29, 31, Ephesians 2:20"
+          scriptures: (
+            <View>
+              <Quote first>
+                <B>2 Timothy 3:15-17</B>
+              </Quote>
+              <Quote first>
+                <B>15</B> and how from childhood you have been acquainted with
+                the sacred writings, which are able to make you wise for
+                salvation through faith in Christ Jesus. <B>16</B> All Scripture
+                is breathed out by God and profitable for teaching, for reproof,
+                for correction, and for training in righteousness, <B>17</B>{" "}
+                that the man of God may be complete, equipped for every good
+                work.
+              </Quote>
+
+              <Quote>
+                <B>Isaiah 8:20</B>
+              </Quote>
+              <Quote first>
+                <B>20</B> To the teaching and to the testimony! If they will not
+                speak according to this word, it is because they have no dawn.
+              </Quote>
+
+              <Quote>
+                <B>Luke 16:29, 31</B>
+              </Quote>
+              <Quote first>
+                <B>29</B> But Abraham said, ‘They have Moses and the Prophets;
+                let them hear them.’
+              </Quote>
+              <Quote>
+                <B>31</B> He said to him, ‘If they do not hear Moses and the
+                Prophets, neither will they be convinced if someone should rise
+                from the dead.’”
+              </Quote>
+
+              <Quote>
+                <B>Ephesians 2:20</B>
+              </Quote>
+              <Quote first>
+                <B>20</B> built on the foundation of the apostles and prophets,
+                Christ Jesus himself being the cornerstone
+              </Quote>
+            </View>
+          )
         },
         {
           superscript: 2,

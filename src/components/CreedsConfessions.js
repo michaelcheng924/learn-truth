@@ -8,6 +8,7 @@ import {
   I,
   PageHeader,
   Picker,
+  Quote,
   ScreenSwitcher,
   Txt,
   Width700
@@ -45,12 +46,12 @@ const ConfessionChapterList = styled.View`
   margin-top: 20px;
 `;
 
-const ConfessionChapterParagraph = styled.Text`
-  color: #000;
-  font-size: 14px;
-  font-style: italic;
-  line-height: 28px;
-  opacity: 0.84;
+const ScripturesTitleContainer = styled.View`
+  background: #795548;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 5px 10px;
 `;
 
 class CreedsConfessions extends Component {
@@ -301,7 +302,13 @@ class CreedsConfessions extends Component {
                       );
                     })}
                   </Txt>
-                  <Txt>{scriptures.section.scriptures}</Txt>
+                  <ScripturesTitleContainer>
+                    <Txt
+                      noMargin
+                      style={{ color: "#fff", opacity: 1 }}
+                    >{`(${paragraphIndex + 1}) Scripture references`}</Txt>
+                  </ScripturesTitleContainer>
+                  <View>{scriptures.section.scriptures}</View>
                   <Txt style={{ opacity: 1 }}>
                     {paragraph2.map((section, index) => {
                       return (

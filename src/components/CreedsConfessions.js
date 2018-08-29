@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 import { get, partial } from "lodash";
 
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import {
   Heading,
   I,
   PageHeader,
   Picker,
-  Quote,
   ScreenSwitcher,
   Txt,
-  Width700
+  Width700,
+  WIP
 } from "./shared";
 
 import { ALL_DOCUMENTS } from "../constants/creeds-confessions";
@@ -185,6 +185,7 @@ class CreedsConfessions extends Component {
           subtitle="Learn the historic creeds and confessions of the church"
         />
         <Width700 center>
+          <WIP />
           {this.renderFilters()}
           {this.renderDocuments()}
         </Width700>

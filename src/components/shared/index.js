@@ -7,5 +7,6 @@ export { default as Picker } from "./picker";
 export { default as Quote } from "./Quote";
 export { default as Txt } from "./Txt";
 export { default as Width700 } from "./Width700";
+export { default as WIP } from "./WIP";
 
 export { default as ScreenSwitcher } from "./ScreenSwitcher";

@@ -47,11 +47,7 @@ const ConfessionChapterList = styled.View`
 `;
 
 const ScripturesTitleContainer = styled.View`
-  background: #795548;
   display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-  padding: 5px 10px;
 `;
 
 class CreedsConfessions extends Component {
@@ -306,7 +302,7 @@ class CreedsConfessions extends Component {
                     <Txt
                       noMargin
                       style={{ color: "#fff", opacity: 1 }}
-                    >{`(${paragraphIndex + 1}) Scripture references`}</Txt>
+                    >{`(${paragraphIndex + 1})`}</Txt>
                   </ScripturesTitleContainer>
                   <View>{scriptures.section.scriptures}</View>
                   <Txt style={{ opacity: 1 }}>

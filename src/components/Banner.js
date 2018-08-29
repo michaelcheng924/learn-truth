@@ -14,6 +14,7 @@ const BannerTextHighlight = styled.Text`
 const BannerText = styled.Text`
   color: #fff;
   font-size: 24px;
+  text-align: center;
 `;
 
 class Banner extends Component {

@@ -37,13 +37,7 @@ const ResourceLink = styled.Text`
 
 class Resources extends Component {
   componentDidMount() {
-    setTimeout(() => {
-      if (Platform.OS === "web") {
-        window.scrollTo(0, 0);
-      } else {
-        this.props.scrollView.scrollTo({ y: 0, animated: true });
-      }
-    });
+    this.props.scrollUp();
   }
 
   render() {

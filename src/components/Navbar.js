@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
 import { Platform, TouchableOpacity } from "react-native";
-import { Link } from "./router/react-router";
+import { Link, Redirect } from "./router/react-router";
 
 const Nav = styled.View`
   align-items: center;
@@ -59,27 +59,41 @@ const LogoTextTruth = styled.Text`
 `;
 
 class Navbar extends Component {
+  state = {
+    home: false
+  };
+
+  onHomeClick = () => {
+    this.setState({ home: true }, () => {
+      this.setState({ home: false });
+    });
+  };
+
+  renderRedirect() {
+    if (!this.state.home) {
+      return null;
+    }
+
+    return <Redirect to="/" />;
+  }
+
   render() {
     return (
       <Nav>
+        {this.renderRedirect()}
         <NavLeft>
           <TouchableOpacity onPress={this.props.toggleMenu}>
             <NavHamburger source={require("../images/icon-hamburger.png")} />
           </TouchableOpacity>
         </NavLeft>
         <NavMiddle>
-          <Link
-            style={Platform.OS === "web" ? { textDecoration: "none" } : {}}
-            to="/"
-          >
-            <TouchableOpacity>
-              <LogoContainer>
-                <Logo source={require("../images/icon-cross.png")} />
-                <LogoText>learn</LogoText>
-                <LogoTextTruth>TRUTH</LogoTextTruth>
-              </LogoContainer>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity onPress={this.onHomeClick}>
+            <LogoContainer>
+              <Logo source={require("../images/icon-cross.png")} />
+              <LogoText>learn</LogoText>
+              <LogoTextTruth>TRUTH</LogoTextTruth>
+            </LogoContainer>
+          </TouchableOpacity>
         </NavMiddle>
         <NavRight />
       </Nav>

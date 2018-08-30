@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
-import { get, partial } from "lodash";
+import { find, get, partial } from "lodash";
 
 import { Text, TouchableOpacity, View } from "react-native";
 import {
@@ -72,7 +72,24 @@ class CreedsConfessions extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.history);
+    const url = this.props.history.location.pathname;
+
+    const currentDocument = find(
+      ALL_DOCUMENTS,
+      document => url.indexOf(document.url) !== -1
+    );
+
+    if (currentDocument) {
+      if (url.indexOf("/chapter/")) {
+        this.setState({
+          currentDocument,
+          isLeft: true,
+          selectedChapterIndex: Number(url.split("/chapter/")[1]) - 1
+        });
+      } else {
+        this.setState({ currentDocument, isLeft: true });
+      }
+    }
   }
 
   onFilterChange = filter => {
@@ -106,11 +123,16 @@ class CreedsConfessions extends Component {
   };
 
   onChapterSelect = index => {
+    const { currentDocument } = this.state;
+    const { history, scrollUp } = this.props;
+
     this.setState({
       selectedChapterIndex: index
     });
 
-    this.props.scrollUp();
+    scrollUp();
+
+    history.push(`${currentDocument.url}/chapter/${index + 1}`);
   };
 
   renderBack = () => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Linking, Platform, TouchableOpacity, View } from "react-native";
+import { Linking, TouchableOpacity, View } from "react-native";
 import { PageHeader, Width700 } from "./shared";
 
 const ResourceContainer = styled.View`

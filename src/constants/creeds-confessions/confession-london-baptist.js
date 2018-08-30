@@ -1,8 +1,3 @@
-import React from "react";
-
-import { View } from "react-native";
-import { B, Scripture, Quote } from "../../components/shared";
-
 const LONDON_BAPTIST = [
   {
     chapter: 1,

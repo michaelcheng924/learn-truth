@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Platform, TouchableOpacity } from "react-native";
-import { Link, Redirect } from "./router/react-router";
+import { TouchableOpacity } from "react-native";
+import { Redirect } from "./router/react-router";
 
 const Nav = styled.View`
   align-items: center;

@@ -71,6 +71,10 @@ class CreedsConfessions extends Component {
     selectedChapterIndex: null
   };
 
+  componentDidMount() {
+    console.log(this.props.history);
+  }
+
   onFilterChange = filter => {
     this.setState({
       filter,
@@ -89,6 +93,8 @@ class CreedsConfessions extends Component {
       isLeft: true,
       selectedChapterIndex: null
     });
+
+    this.props.history.push(document.url);
   };
 
   onBack = () => {

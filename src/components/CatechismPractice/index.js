@@ -202,7 +202,7 @@ class CatechismPractice extends Component {
     let newNumber;
     const max = catechism.length;
 
-    while (options.length < 4) {
+    function addNewNumber() {
       newNumber = Math.round(Math.random() * 10) + number - 5;
       if (
         !some(options, option => option === newNumber) &&
@@ -211,6 +211,10 @@ class CatechismPractice extends Component {
       ) {
         options.push(newNumber);
       }
+    }
+
+    while (options.length < 4) {
+      addNewNumber();
     }
 
     return shuffle(

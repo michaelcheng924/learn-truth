@@ -17,7 +17,7 @@ const ALL_DOCUMENTS = [
     contentType: "render",
     description:
       "An early statement of Christian belief. Trinitarian in structure.",
-    url: "/creeds-confessions/"
+    url: "/creeds-confessions/apostles-creed"
   },
   {
     type: "Creeds",
@@ -26,7 +26,8 @@ const ALL_DOCUMENTS = [
     content: NICENE_CREED,
     contentType: "render",
     description:
-      "Also known as the Nicene-Constantinopolitan Creed. A statement of the orthodox faith of the early Christian church in opposition to certain heresies, especially Arianism."
+      "Also known as the Nicene-Constantinopolitan Creed. A statement of the orthodox faith of the early Christian church in opposition to certain heresies, especially Arianism.",
+    url: "/creeds-confessions/nicene-creed"
   },
   {
     type: "Creeds",
@@ -35,7 +36,8 @@ const ALL_DOCUMENTS = [
     content: CHALCEDEONIAN_CREED,
     contentType: "render",
     description:
-      "A response to certain heretical views concerning the nature of Christ.  It established the orthodox view that Christ has two natures (human and divine) that are unified in one person."
+      "A response to certain heretical views concerning the nature of Christ.  It established the orthodox view that Christ has two natures (human and divine) that are unified in one person.",
+    url: "/creeds-confessions/chalcedonian-creed"
   },
   {
     type: "Creeds",
@@ -45,7 +47,8 @@ const ALL_DOCUMENTS = [
     content: ATHANASIAN_CREED,
     contentType: "render",
     description:
-      "Named after Athanasius (A.D. 293-373), the champion of orthodoxy against Arian attacks on the doctrine of the trinity. Although Athanasius did not write this creed and it is improperly named after him, the name persists because until the seventeenth century it was commonly ascribed to him."
+      "Named after Athanasius (A.D. 293-373), the champion of orthodoxy against Arian attacks on the doctrine of the trinity. Although Athanasius did not write this creed and it is improperly named after him, the name persists because until the seventeenth century it was commonly ascribed to him.",
+    url: "/creeds-confessions/athanasian-creed"
   },
   {
     type: "Confessions",
@@ -54,7 +57,8 @@ const ALL_DOCUMENTS = [
     content: THIRTY_NINE_ARTICLES,
     contentType: "render",
     description:
-      "Used to define the doctrine of the Church of England as it related to Calvinist doctrine and Roman Catholic practice. It was in this document that Calvinist thought reached the zenith of its influence in the English Church."
+      "Used to define the doctrine of the Church of England as it related to Calvinist doctrine and Roman Catholic practice. It was in this document that Calvinist thought reached the zenith of its influence in the English Church.",
+    url: "/creeds-confessions/thirty-nine-articles"
   },
   {
     type: "Confessions",
@@ -62,7 +66,8 @@ const ALL_DOCUMENTS = [
     name: "Westminster Confession of Faith",
     content: WESTMINSTER,
     description:
-      'Drawn up to be a confession of the Church of England, it became and remains the "subordinate standard" of doctrine in the Church of Scotland and has been influential within Presbyterian churches worldwide.'
+      'Drawn up to be a confession of the Church of England, it became and remains the "subordinate standard" of doctrine in the Church of Scotland and has been influential within Presbyterian churches worldwide.',
+    url: "/creeds-confessions/westminster-confession"
   },
   {
     type: "Confessions",
@@ -71,7 +76,8 @@ const ALL_DOCUMENTS = [
     name: "1689 London Baptist Confession of Faith",
     content: LONDON_BAPTIST,
     description:
-      "Written by Particular Baptists who held to a Calvinistic soteriology in England to give a formal expression of their Christian faith from a Baptist perspective."
+      "Written by Particular Baptists who held to a Calvinistic soteriology in England to give a formal expression of their Christian faith from a Baptist perspective.",
+    url: "/creeds-confessions/london-baptist-confession"
   }
 ];
 

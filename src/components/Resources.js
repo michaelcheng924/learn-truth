@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
 import { Linking, TouchableOpacity, View } from "react-native";
-import { PageHeader, Txt, Width700 } from "./shared";
+import { PageHeader, Width700 } from "./shared";
 
 const ResourceContainer = styled.View`
   align-items: center;

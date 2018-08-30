@@ -47,7 +47,15 @@ const ConfessionChapterList = styled.View`
 `;
 
 const ScripturesTitleContainer = styled.View`
+  align-items: center;
   display: flex;
+  flex-direction: row;
+`;
+
+const XIcon = styled.Image`
+  height: 18px;
+  margin-right: 10px;
+  width: 18px;
 `;
 
 class CreedsConfessions extends Component {
@@ -300,9 +308,18 @@ class CreedsConfessions extends Component {
                     })}
                   </Txt>
                   <ScripturesTitleContainer>
+                    <TouchableOpacity
+                      onPress={() => this.setState({ scriptures: null })}
+                    >
+                      <XIcon source={require("../images/icon-x.png")} />
+                    </TouchableOpacity>
                     <Txt
                       noMargin
-                      style={{ color: "#fff", opacity: 1 }}
+                      style={{
+                        color: "#795548",
+                        fontStyle: "italic",
+                        fontWeight: "bold"
+                      }}
                     >{`(${paragraphIndex + 1})`}</Txt>
                   </ScripturesTitleContainer>
                   <View>{scriptures.section.scriptures}</View>

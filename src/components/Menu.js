@@ -14,7 +14,6 @@ const MenuTextContainer = styled.View`
   display: flex;
   flex-direction: row;
   padding: 10px 0 10px 20px;
-  width: 280px;
 `;
 
 const MenuImage = styled.Image`
@@ -25,6 +24,7 @@ const MenuImage = styled.Image`
 
 const MenuText = styled.Text`
   width: 280px;
+  ${Platform.OS === "web" ? "white-space: nowrap;" : ""};
 `;
 
 const AppStoreImage = styled.Image`

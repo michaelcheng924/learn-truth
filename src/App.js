@@ -54,7 +54,7 @@ class App extends Component {
       <View
         style={{
           position: "absolute",
-          top: Platform.OS === "web" ? 45 : 69
+          top: 45
         }}
       >
         {showMenu ? (

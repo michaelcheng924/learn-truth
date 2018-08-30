@@ -3,6 +3,7 @@ export { default as Heading } from "./Heading";
 export { default as Img } from "./Img";
 export { default as PageHeader } from "./PageHeader";
 export { default as Picker } from "./picker";
+export { default as Scripture } from "./Scripture";
 export { default as Quote } from "./Quote";
 export { default as Txt } from "./Txt";
 export { default as Width700 } from "./Width700";

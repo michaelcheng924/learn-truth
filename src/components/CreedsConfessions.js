@@ -9,6 +9,7 @@ import {
   PageHeader,
   Picker,
   ScreenSwitcher,
+  Scripture,
   Txt,
   Width700,
   WIP
@@ -322,7 +323,15 @@ class CreedsConfessions extends Component {
                       }}
                     >{`(${paragraphIndex + 1})`}</Txt>
                   </ScripturesTitleContainer>
-                  <View>{scriptures.section.scriptures}</View>
+                  {scriptures.section.scriptures.map(scripture => {
+                    return (
+                      <Scripture
+                        key={scripture.reference}
+                        reference={scripture.reference}
+                        text={scripture.text}
+                      />
+                    );
+                  })}
                   <Txt style={{ opacity: 1 }}>
                     {paragraph2.map((section, index) => {
                       return (

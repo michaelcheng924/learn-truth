@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components/primitives";
 import { partial } from "lodash";
 
-import { Animated, Platform, TouchableOpacity } from "react-native";
+import { Animated, Platform, TouchableOpacity, View } from "react-native";
 import { Redirect } from "./router/react-router";
 
 import { MENU_LINKS } from "../constants/pages";
@@ -34,6 +34,7 @@ const AppStoreImage = styled.Image`
 
 class Menu extends Component {
   state = {
+    hiddenFinished: true,
     url: null,
     widthAnim: new Animated.Value(0)
   };
@@ -42,6 +43,8 @@ class Menu extends Component {
     const { showMenu } = this.props;
 
     if (!prevProps.showMenu && showMenu) {
+      this.setState({ hiddenFinished: false });
+
       Animated.spring(this.state.widthAnim, {
         toValue: 280,
         duration: 150,
@@ -53,6 +56,10 @@ class Menu extends Component {
         duration: 150,
         friction: 15
       }).start();
+
+      setTimeout(() => {
+        this.setState({ hiddenFinished: true });
+      }, 150);
     }
   }
 
@@ -111,10 +118,14 @@ class Menu extends Component {
         }}
       >
         {this.renderRedirect()}
-        {MENU_LINKS.map(({ title, url, image }) => {
-          return this.renderLink(title, url, image);
-        })}
-        {Platform.OS === "web" ? this.renderMobileLinks() : null}
+        {this.state.hiddenFinished ? null : (
+          <View>
+            {MENU_LINKS.map(({ title, url, image }) => {
+              return this.renderLink(title, url, image);
+            })}
+            {Platform.OS === "web" ? this.renderMobileLinks() : null}
+          </View>
+        )}
       </Animated.View>
     );
   }

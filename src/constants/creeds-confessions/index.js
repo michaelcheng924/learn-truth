@@ -16,7 +16,8 @@ const ALL_DOCUMENTS = [
     content: APOSTLES_CREED,
     contentType: "render",
     description:
-      "An early statement of Christian belief. Trinitarian in structure."
+      "An early statement of Christian belief. Trinitarian in structure.",
+    url: "/creeds-confessions/"
   },
   {
     type: "Creeds",

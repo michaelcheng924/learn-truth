@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components/primitives";
 
-import { Linking, Platform, TouchableOpacity, View } from "react-native";
-import { PageHeader, Width700 } from "./shared";
+import { Linking, TouchableOpacity, View } from "react-native";
+import { PageHeader, Txt, Width700 } from "./shared";
 
 const ResourceContainer = styled.View`
   align-items: center;
@@ -17,7 +17,10 @@ const ResourceImage = styled.Image`
   width: 80px;
 `;
 
-const ResourceInfoContainer = styled.View``;
+const ResourceInfoContainer = styled.View`
+  width: 0;
+  flex-grow: 1;
+`;
 
 const ResourceName = styled.Text`
   font-size: 25px;
@@ -48,7 +51,7 @@ class Resources extends Component {
           title="Resources"
           subtitle="Resources to help you grow in your faith"
         />
-        <Width700 spaceBottom>
+        <Width700>
           <TouchableOpacity
             onPress={() => Linking.openURL("http://g3conference.com/archives")}
           >

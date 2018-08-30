@@ -17,12 +17,14 @@ const ResourceImage = styled.Image`
   width: 80px;
 `;
 
-const ResourceInfoContainer = styled.View``;
+const ResourceInfoContainer = styled.View`
+  width: 0;
+  flex-grow: 1;
+`;
 
 const ResourceName = styled.Text`
   font-size: 25px;
   font-weight: 500;
-  width: 240px;
 `;
 
 const ResourceLink = styled.Text`
